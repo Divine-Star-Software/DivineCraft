@@ -1,0 +1,38 @@
+npm install
+@babylonjs/core
+@divinestar/audio
+@divinestar/binary
+@divinestar/controls
+@divinestar/threads
+@divinestar/rng
+@divinestar/utils
+@divinevoxel/babylon-renderer
+@divinevoxel/core
+@divinevoxel/foundation
+react
+react-dom
+react-router-dom
+zustand
+
+
+DevDependencies:
+@types/react
+@types/react-dom
+css-loader
+file-loader
+html-loader
+html-webpack-plugin
+postcss-loader
+style-loader
+ts-loader
+tsconfig-paths-webpack-plugin
+typescript
+webpack
+webpack-cli
+webpack-dev-server
+
+
+
+npm install @babylonjs/core @divinestar/audio @divinestar/binary @divinestar/controls @divinestar/threads @divinestar/utils @divinevoxel/babylon-renderer @divinevoxel/core @divinevoxel/foundation react react-dom react-router-dom zustand
+
+npm install -D @types/react @types/react-dom css-loader file-loader html-loader html-webpack-plugin postcss-loader style-loader ts-loader tsconfig-paths-webpack-plugin typescript webpack webpack-cli webpack-dev-server

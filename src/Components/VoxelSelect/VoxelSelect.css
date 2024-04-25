@@ -1,0 +1,48 @@
+.voxel-select {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  justify-content: center;
+  margin: auto;
+
+  height: 75px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+
+  .voxel-select-row {
+    transition: 0.15s;
+    display: flex;
+   
+
+    flex-direction: row;
+    justify-content: center;
+    background-color: gray;
+    .voxel {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 5px;
+      &.active {
+        background-color: rgba(255, 196, 2, 0.7);
+      }
+
+      .voxel-image-container {
+        width: 100%;
+        .voxel-image {
+          width: 64px;
+          height: 64px;
+          image-rendering: pixelated;
+        }
+      }
+
+      .voxel-title {
+        width: 100%;
+      }
+
+    }
+  }
+}
