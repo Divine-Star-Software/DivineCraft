@@ -9,7 +9,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-
+    "@babylonjs/core": "^7.4.0",
+    "@divinestar/audio": "^0.0.20",
+    "@divinestar/binary": "^0.0.50",
+    "@divinestar/controls": "^0.0.20",
+    "@divinestar/rng": "^0.0.20",
+    "@divinestar/threads": "^0.0.50",
+    "@divinestar/utils": "^0.0.50",
+    "@divinevoxel/babylon-renderer": "^0.0.17",
+    "@divinevoxel/core": "^0.0.55",
+    "@divinevoxel/foundation": "^0.0.52",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-router-dom": "^6.23.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.79",

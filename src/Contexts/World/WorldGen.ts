@@ -12,7 +12,7 @@ const voxels = {
 
 import { PerlinNoise3d } from "@divinestar/rng/perlin/index";
 const perlin = new PerlinNoise3d();
-perlin.noiseSeed(2039482390);
+perlin.noiseSeed(8908908090);
 
 const biomePerlin = new PerlinNoise3d();
 biomePerlin.noiseSeed(203948239);
@@ -43,7 +43,7 @@ export class WorldGen {
       (z + zOffSet) / scale
     );
     if (value > 0.6) return Biomes.Ocean;
-    if (value <= 0.6 && value >= 0.5) return Biomes.Beach;
+    if (value <= 0.6 && value >= 0.55) return Biomes.Beach;
     return Biomes.Grassland;
   }
 
