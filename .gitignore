@@ -1,9 +1,11 @@
 dist
+build
 node_modules
 scripts
 package-lock.json
 meta.json
+outside
+
 *.env
 emsdk
 packages.txt
-divineCraft/build

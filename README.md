@@ -1,9 +1,15 @@
 <h1 align="center">
- ⛯ DVE Examples ⛯
+ ⛯ Divine Craft ⛯
 </h1>
 
+<p align="center">
+<img src="https://divine-star-software.github.io/DigitalAssets/images/logo-small.png">
+</p>
 
 ---
 
+A simple Minecraft like game made with @divinevoxel/foundation. 
 
-A mono repo for different games and examples built with Divine Voxel Engine. 
+
+The textures used are from the resource pack Pixel Perfection by XSSheep.
+

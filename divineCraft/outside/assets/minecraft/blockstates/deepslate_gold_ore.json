@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "": [
-            { "model": "block/deepslate_gold_ore" },
-            { "model": "block/deepslate_ore/gold/1"}
-		]
-    }
-}

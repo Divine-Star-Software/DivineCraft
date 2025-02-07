@@ -1,9 +1,0 @@
-{
-    "variants": {
-        "": [
-			{ "model": "block/cobbled_deepslate" },
-			{ "model": "block/cobbled_deepslate/1" },
-			{ "model": "block/cobbled_deepslate/2" }
-		]
-    }
-}
