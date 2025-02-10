@@ -18,7 +18,7 @@ import {
 } from "@babylonjs/core";
 import { TopDownCamera } from "./TopDownCamera";
 import { GenMap } from "./GenMap/GenMap";
-import { SafeInterval } from "@amodx/core/Intervals/SafeInterval";
+import { TickInterval } from "Util/TickInterval"
 import { BiomeMap } from "./BiomeMap/BiomeMap";
 import { Graph } from "@amodx/ncs";
 import { GameComponent } from "Game.component";
@@ -45,7 +45,9 @@ export function WorldMapComponent(props: { graph: Graph }) {
   const renderState = useRef({ isBig: false, mode: MapModes.WorldGen });
 
   const game = GameComponent.getRequired(props.graph.root);
-  const playerTransform = TransformComponent.getRequired(game.data.activePlayer.node);
+  const playerTransform = TransformComponent.getRequired(
+    game.data.activePlayer.node
+  );
   const playerCamera = CameraProviderComponent.getRequiredChild(
     playerTransform.node
   );
@@ -254,18 +256,17 @@ export function WorldMapComponent(props: { graph: Graph }) {
 
     let mode = renderState.current.mode;
     const location: LocationData = [
-      "main",
+      0,
       playerTransform.schema.position.x,
       playerTransform.schema.position.y,
       playerTransform.schema.position.z,
     ];
-    const inte = new SafeInterval(() => {
+    const inte = new TickInterval(() => {
       //   mapRef.current.updateTiles(["main", 0, 0, 0]);
       //   if (!props.nodes.player?.model?.model) return;
       location[1] = playerTransform.schema.position.x;
       location[2] = playerTransform.schema.position.y;
       location[3] = playerTransform.schema.position.z;
-
 
       mapRef.current.updateTiles(location);
     }, 50);

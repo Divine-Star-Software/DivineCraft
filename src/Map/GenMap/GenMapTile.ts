@@ -1,7 +1,7 @@
 import { LocationData } from "@divinevoxel/vlox/Math";
 import { GenMap } from "./GenMap";
 import { EntityInstance } from "@divinevoxel/vlox-babylon/Tools/EntityInstance";
-import { SafeInterval } from "@amodx/core/Intervals/SafeInterval";
+import { TickInterval } from "Util/TickInterval";
 import { DivineVoxelEngineRender } from "@divinevoxel/vlox/Contexts/Render";
 import { WorldRegister } from "@divinevoxel/vlox/World/WorldRegister";
 import { Sector } from "@divinevoxel/vlox/World";
@@ -59,7 +59,7 @@ export class GenMapTile {
       return;
     }
 
-    if (sector.getBitFlag(Sector.FlagIds.isDirty)) {
+    if (sector.isDisplayDirty()) {
       this.setColor(0.0, 0.0, 1.0, 1.0); // Blue
       return;
     }
@@ -79,7 +79,7 @@ export class GenMapTile {
   }
 }
 
-new SafeInterval(() => {
+new TickInterval(() => {
   for (let i = 0; i < GenMapTile.Tiles.length; i++) {
     GenMapTile.Tiles[i].update();
   }

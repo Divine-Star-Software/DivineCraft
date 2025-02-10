@@ -43,10 +43,7 @@ export const voxelData: VoxelData[] = [
           {
             name: "varation",
             type: "string",
-            values: {
-              0: "default",
-              1: "mossy",
-            },
+            values: ["default", "mossy"],
           },
         ],
         modRelationSchema: [],
@@ -188,10 +185,7 @@ export const voxelData: VoxelData[] = [
           {
             name: "snowed",
             type: "string",
-            values: {
-              0: "false",
-              1: "true",
-            },
+            values: ["false", "true"],
           },
         ],
         modRelationSchema: [],
@@ -320,11 +314,31 @@ export const voxelData: VoxelData[] = [
     properties: {
       dve_substance: "dve_glow",
       dve_rendered_material: "dve_glow",
-      dve_is_light_source: true,
+      dve_is_light_source: false,
       dve_light_value: [15, 15, 15],
       dve_collider_id: "dve_cube",
       dve_check_collisions: true,
       dve_voxel_material: "stone",
+      dve_can_be_powered: true,
+      dve_logic_data: [
+        {
+          type: "powered",
+          on: [
+            {
+              type: "tag",
+              tagId: "dve_is_light_source",
+              value: true,
+            },
+          ],
+          off: [
+            {
+              type: "tag",
+              tagId: "dve_is_light_source",
+              value: false,
+            },
+          ],
+        },
+      ],
       dve_named_states: [
         {
           id: "dc_redstone_lamp",
@@ -379,6 +393,157 @@ export const voxelData: VoxelData[] = [
             texture: "dc_oak_leaves",
             transparent: true,
           },
+        },
+      },
+    },
+  },
+  {
+    id: "425f37ce",
+    name: "dc_oak_fence",
+    properties: {
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+      dve_is_transparent: true,
+      dve_named_states: [
+        {
+          id: "dc_oak_fence",
+          name: "Oak Fence",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+      dve_model_data: {
+        id: "dve_fence",
+        inputs: {
+          "*": {
+            upTex: "dc_oak_planks",
+            downTex: "dc_oak_planks",
+            northTex: "dc_oak_planks",
+            southTex: "dc_oak_planks",
+            eastTex: "dc_oak_planks",
+            westTex: "dc_oak_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "7ed70bd5",
+    name: "dc_oak_slab",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "pvg_oak_plank_slab",
+          name: "Oak Slab",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_half_cube",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_oak_planks",
+            sideTextures: "dc_oak_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "fa1b6f06",
+    name: "dc_oak_trap_door",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+
+      dve_named_states: [
+        {
+          id: "dc_oak_trap_door",
+          name: "Oak Trap Door",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_thin_panel",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_oak_trapdoor",
+            sideTextures: "dc_oak_trapdoor",
+            upDownTexturesTransparent: true,
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "25b0ee4b",
+    name: "dc_oak_stairs",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_oak_stairs",
+          name: "Oak Stairs",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "placement=down,direction=north,connected=false",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_stair",
+        inputs: {
+          "*": { texture: "dc_oak_planks" },
         },
       },
     },
@@ -559,6 +724,161 @@ export const voxelData: VoxelData[] = [
     },
   },
   {
+    id: "1389e932",
+    name: "dc_dark_oak_fence",
+    properties: {
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+      dve_is_transparent: true,
+      dve_named_states: [
+        {
+          id: "dc_oak_fence",
+          name: "Oak Fence",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+      dve_model_data: {
+        id: "dve_fence",
+        inputs: {
+          "*": {
+            upTex: "dc_dark_oak_planks",
+            downTex: "dc_dark_oak_planks",
+            northTex: "dc_dark_oak_planks",
+            southTex: "dc_dark_oak_planks",
+            eastTex: "dc_dark_oak_planks",
+            westTex: "dc_dark_oak_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "2009cf09",
+    name: "dc_dark_oak_slab",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "pvg_oak_plank_slab",
+          name: "Oak Slab",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_half_cube",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_dark_oak_planks",
+            sideTextures: "dc_dark_oak_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "ea11c01c",
+    name: "dc_dark_oak_trap_door",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+
+      dve_named_states: [
+        {
+          id: "dc_oak_trap_door",
+          name: "Oak Trap Door",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_thin_panel",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_dark_oak_trapdoor",
+            sideTextures: "dc_dark_oak_trapdoor",
+            upDownTexturesTransparent: true,
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "c12fe26d",
+    name: "dc_dark_oak_stairs",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_dark_oak_stairs",
+          name: "Dark Oak Stairs",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "placement=down,direction=north,connected=false",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_stair",
+        inputs: {
+          "*": { texture: "dc_dark_oak_planks" },
+        },
+      },
+    },
+  },
+
+
+
+
+  {
     id: "cc03dc84",
     name: "dc_acacia_leaves",
     properties: {
@@ -663,6 +983,160 @@ export const voxelData: VoxelData[] = [
       },
     },
   },
+  {
+    id: "42a89bd3",
+    name: "dc_acacia_fence",
+    properties: {
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+      dve_is_transparent: true,
+      dve_named_states: [
+        {
+          id: "dc_acacia_fence",
+          name: "Acacia Fence",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+      dve_model_data: {
+        id: "dve_fence",
+        inputs: {
+          "*": {
+            upTex: "dc_acacia_planks",
+            downTex: "dc_acacia_planks",
+            northTex: "dc_acacia_planks",
+            southTex: "dc_acacia_planks",
+            eastTex: "dc_acacia_planks",
+            westTex: "dc_acacia_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "d489e148",
+    name: "dc_acacia_slab",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_acacia_slab",
+          name: "Acacia Slab",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_half_cube",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_acacia_planks",
+            sideTextures: "dc_acacia_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "e9bc5ad2",
+    name: "dc_acacia_trap_door",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+
+      dve_named_states: [
+        {
+          id: "dc_acacia_trap_door",
+          name: "Acacia Trap Door",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_thin_panel",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_acacia_trapdoor",
+            sideTextures: "dc_acacia_trapdoor",
+            upDownTexturesTransparent: true,
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "67d33357",
+    name: "dc_acacia_stairs",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_acacia_stairs",
+          name: "Acacia Stairs",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "placement=down,direction=north,connected=false",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_stair",
+        inputs: {
+          "*": { texture: "dc_acacia_planks" },
+        },
+      },
+    },
+  },
+
+
+
   {
     id: "4a0a9151",
     name: "dc_birch_leaves",
@@ -771,6 +1245,162 @@ export const voxelData: VoxelData[] = [
     },
   },
   {
+    id: "6883085c",
+    name: "dc_birch_fence",
+    properties: {
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+      dve_is_transparent: true,
+      dve_named_states: [
+        {
+          id: "ddc_birch_fence",
+          name: "Birch Fence",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+      dve_model_data: {
+        id: "dve_fence",
+        inputs: {
+          "*": {
+            upTex: "dc_birch_planks",
+            downTex: "dc_birch_planks",
+            northTex: "dc_birch_planks",
+            southTex: "dc_birch_planks",
+            eastTex: "dc_birch_planks",
+            westTex: "dc_birch_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "b632cd94",
+    name: "dc_birch_slab",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_acacia_slab",
+          name: "Acacia Slab",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_half_cube",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_birch_planks",
+            sideTextures: "dc_birch_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "673b3819",
+    name: "dc_birch_trapdoor",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+
+      dve_named_states: [
+        {
+          id: "dc_birch_trapdoor",
+          name: "Birch Trap Door",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_thin_panel",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_birch_trapdoor",
+            sideTextures: "dc_birch_trapdoor",
+            upDownTexturesTransparent: true,
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "5e64df9a",
+    name: "dc_birch_stairs",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_birch_stairs",
+          name: "Birch Stairs",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "placement=down,direction=north,connected=false",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_stair",
+        inputs: {
+          "*": { texture: "dc_birch_planks" },
+        },
+      },
+    },
+  },
+
+
+
+
+
+  {
     id: "7d3f20d4",
     name: "dc_spruce_log",
     properties: {
@@ -875,6 +1505,175 @@ export const voxelData: VoxelData[] = [
       },
     },
   },
+ 
+
+
+  {
+    id: "f69e9704",
+    name: "dc_spruce_fence",
+    properties: {
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+      dve_is_transparent: true,
+      dve_named_states: [
+        {
+          id: "dc_spruce_fence",
+          name: "Spruce Fence",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+      dve_model_data: {
+        id: "dve_fence",
+        inputs: {
+          "*": {
+            upTex: "dc_spruce_planks",
+            downTex: "dc_spruce_planks",
+            northTex: "dc_spruce_planks",
+            southTex: "dc_spruce_planks",
+            eastTex: "dc_spruce_planks",
+            westTex: "dc_spruce_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "3e7b6421",
+    name: "dc_spruce_slab",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_spruce_slab",
+          name: "Spruce Slab",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_half_cube",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_spruce_planks",
+            sideTextures: "dc_spruce_planks",
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "0c4df9a8",
+    name: "dc_spruce_trapdoor",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_cube",
+      dve_check_collisions: true,
+      dve_voxel_material: "wood",
+
+      dve_named_states: [
+        {
+          id: "dc_acacia_trap_door",
+          name: "Spruce Trap Door",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "*",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_thin_panel",
+        inputs: {
+          "*": {
+            upDownTextures: "dc_spruce_trapdoor",
+            sideTextures: "dc_spruce_trapdoor",
+            upDownTexturesTransparent: true,
+          },
+        },
+      },
+    },
+  },
+  {
+    id: "0328fd29",
+    name: "dc_spruce_stairs",
+    properties: {
+      dve_is_transparent: true,
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
+
+      dve_collider_id: "dve_stair",
+      dve_check_collisions: true,
+      dve_voxel_material: "stone",
+
+      dve_named_states: [
+        {
+          id: "dc_spruce_stairs",
+          name: "Spruce Stairs",
+          mod: "*",
+          state: "*",
+          properties: {},
+          display: {
+            type: "model",
+            mod: "*",
+            state: "placement=down,direction=north,connected=false",
+          },
+        },
+      ],
+
+      dve_model_data: {
+        id: "dve_simple_stair",
+        inputs: {
+          "*": { texture: "dc_spruce_planks" },
+        },
+      },
+    },
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {
     id: "cf2a8738",
     name: "dc_snow",
@@ -906,6 +1705,7 @@ export const voxelData: VoxelData[] = [
       },
     },
   },
+
   {
     id: "77dc282b",
     name: "dc_ice",
@@ -1351,6 +2151,8 @@ export const voxelData: VoxelData[] = [
       dve_collider_id: "dve_cube",
       dve_check_collisions: true,
       dve_voxel_material: "ore",
+      dve_is_power_source: true,
+      dve_power_value: 15,
       dve_named_states: [
         {
           id: "dc_redstone_block",

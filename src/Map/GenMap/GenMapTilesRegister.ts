@@ -15,10 +15,10 @@ export type WorldMapTileRegisterDimensions = {
 };
 
 export class GenMapTilesRegister {
-  _dimensions = new Map<string, WorldMapTileRegisterDimensions>();
+  _dimensions = new Map<number, WorldMapTileRegisterDimensions>();
 
   constructor(public worldMap: GenMap) {
-    this._dimensions.set("main", {
+    this._dimensions.set(0, {
       sectors: new Map(),
     });
   }
@@ -27,23 +27,23 @@ export class GenMapTilesRegister {
     for (const [dkey, dim] of this._dimensions) {
       this.dimensions.remove(dkey);
     }
-    this._dimensions.set("main", {
+    this._dimensions.set(0, {
       sectors: new Map(),
     });
   }
 
   dimensions = {
-    add: (id: string) => {
+    add: (id: number) => {
       const dimesnion = new Map();
       this._dimensions.set(id, {
         sectors: new Map(),
       });
       return dimesnion;
     },
-    get: (id: string) => {
+    get: (id: number) => {
       return this._dimensions.get(id);
     },
-    remove: (id: string) => {
+    remove: (id: number) => {
       const dimension = this._dimensions.get(id);
       if (!dimension) return false;
       dimension.sectors.forEach((column) => {

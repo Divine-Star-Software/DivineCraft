@@ -8,7 +8,7 @@ export type BiomeMapTilesRegisterColumn = {
 };
 
 export type BiomeMapTileRegisterDimensions = Map<
-  string,
+  number,
   Map<string, BiomeMapTile>
 >;
 
@@ -16,26 +16,26 @@ export class BiomeMapTilesRegister {
   _dimensions: BiomeMapTileRegisterDimensions = new Map();
 
   constructor(public worldMap: BiomeMap) {
-    this._dimensions.set("main", new Map());
+    this._dimensions.set(0, new Map());
   }
 
   clearAll() {
     for (const [dkey, dim] of this._dimensions) {
       this.dimensions.remove(dkey);
     }
-    this._dimensions.set("main", new Map());
+    this._dimensions.set(0, new Map());
   }
 
   dimensions = {
-    add: (id: string) => {
+    add: (id: number) => {
       const dimesnion = new Map();
       this._dimensions.set(id, dimesnion);
       return dimesnion;
     },
-    get: (id: string) => {
+    get: (id: number) => {
       return this._dimensions.get(id);
     },
-    remove: (id: string) => {
+    remove: (id: number) => {
       const dimension = this._dimensions.get(id);
       if (!dimension) return false;
       dimension.forEach((region) => {

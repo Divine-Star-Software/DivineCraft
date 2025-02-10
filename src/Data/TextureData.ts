@@ -6,6 +6,36 @@ export const textureData: TextureData[] = [
     variations: ["snowed", "side", "bottom", "top"],
   },
   {
+    id: "dc_acacia_trapdoor",
+  },
+  {
+    id: "dc_birch_trapdoor",
+  },
+  {
+    id: "dc_dark_oak_trapdoor",
+  },
+  {
+    id: "dc_crimson_trapdoor",
+  },
+  {
+    id: "dc_crimson_trapdoor",
+  },
+  {
+    id: "dc_warped_trapdoor",
+  },
+  {
+    id: "dc_iron_trapdoor",
+  },
+  {
+    id: "dc_jungle_trapdoor",
+  },
+  {
+    id: "dc_oak_trapdoor",
+  },
+  {
+    id: "dc_spruce_trapdoor",
+  },
+  {
     id: "dc_glow_stone",
   },
   {

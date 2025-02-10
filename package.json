@@ -6,16 +6,49 @@
   "scripts": {
     "start": "npx webpack  serve --mode development --env development  --config webpack.config.dev.cjs  ",
     "build": "npx webpack --config webpack.config.prod.cjs  ",
-    "link-assets":"rm -r ./build/assets; cp -r ./static/assets ./build/assets"
+    "link-assets": "rm -r ./build/assets; cp -r ./static/assets ./build/assets"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "alea": "^1.0.1",
-    "simplex-noise": "^4.0.1"
-
+    "simplex-noise": "^4.0.1",
+    "@divinevoxel/vlox": "latest",
+    "@divinevoxel/vlox-babylon": "latest",
+    "@dvegames/vlox": "latest",
+    "@dvegames/vlox-tools": "latest",
+    "@amodx/elm": "latest",
+    "@amodx/core": "latest",
+    "@amodx/ncs": "latest",
+    "@amodx/rng": "latest",
+    "@amodx/meshing": "latest",
+    "@amodx/math": "latest",
+    "@amodx/binary": "latest",
+    "@amodx/threads": "latest",
+    "@amodx/indexdb": "latest",
+    "@amodx/controls": "latest",
+    "@amodx/schemas": "latest",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@babylonjs/core": "^7.34.2",
+    "dat.gui": "^0.7.9"
   },
   "devDependencies": {
-
+    "@types/dat.gui": "^0.7.13",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@webgpu/types": "^0.1.51",
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "postcss-loader": "^8.1.1",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   }
 }
