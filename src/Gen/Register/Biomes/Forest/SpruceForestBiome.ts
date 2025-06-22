@@ -21,13 +21,12 @@ export class SpruceForestBiome extends Biome {
   }
 
   getCarved(x: number, y: number, z: number): boolean {
-    return Caves.getCarved(x,y,z);
+    return Caves.getCarved(x, y, z);
   }
   getBlendtoHeight(x: number, y: number, z: number): number {
     return this.getHeight(x, y, z);
   }
   noiseQuery(x: number, y: number, z: number) {
-
     return (
       (1 +
         this.nodes.noise.worldGenNoise(
@@ -39,17 +38,13 @@ export class SpruceForestBiome extends Biome {
     );
   }
   getHeight(x: number, y: number, z: number): number {
-
     let height = this.noiseQuery(x, 0, z) * 30 + this.nodes.minHeight;
     return height;
   }
 
   getFillVoxel(x: number, y: number, z: number, top = false) {
-    const value = (1 + this.nodes.noise.worldGenNoise(
-      x / 200,
-      y / 200,
-      z / 200
-    )) / 2
+    const value =
+      (1 + this.nodes.noise.worldGenNoise(x / 200, y / 200, z / 200)) / 2;
 
     if (value > 0.4 && value < 1) return Voxels.Podzol;
     if (value > 0.3 && value < 0.4)
@@ -59,7 +54,7 @@ export class SpruceForestBiome extends Biome {
   addTopLayer(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
 
     if (topAir && voxel == Voxels.Stone!) {
@@ -84,13 +79,13 @@ export class SpruceForestBiome extends Biome {
   decorate(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && (voxel == Voxels.Podzol || voxel == Voxels.GrassBlock)) {
       const value = Math.random();
 
-      if (value > 0.99) {
-        Trees.generateSpruceTree( x, y + 1, z);
+      if (value > 0.9 && value < 0.905 && x % 2 == 0 && z % 2 == 0) {
+        Trees.generateSpruceTree(x, y + 1, z);
         return;
       }
       if (value > 0.88 && value < 0.89) {

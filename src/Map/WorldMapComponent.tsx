@@ -18,12 +18,12 @@ import {
 } from "@babylonjs/core";
 import { TopDownCamera } from "./TopDownCamera";
 import { GenMap } from "./GenMap/GenMap";
-import { TickInterval } from "Util/TickInterval"
+import { TickInterval } from "Util/TickInterval";
 import { BiomeMap } from "./BiomeMap/BiomeMap";
 import { Graph } from "@amodx/ncs";
-import { GameComponent } from "Game.component";
-import { TransformComponent } from "@dvegames/vlox/Core/Components/Base/Transform.component";
-import { CameraProviderComponent } from "@dvegames/vlox/Babylon/Components/Providers/CameraProvider.component";
+import { GameContext } from "Game.context";
+import { TransformComponent } from "@dvegames/vlox/Transform.component";
+import { CameraProviderComponent } from "@dvegames/vlox/Babylon/Providers/CameraProvider.component";
 import { GenMapTile } from "./GenMap/GenMapTile";
 import { LocationData } from "@divinevoxel/vlox/Math";
 
@@ -44,7 +44,7 @@ export function WorldMapComponent(props: { graph: Graph }) {
 
   const renderState = useRef({ isBig: false, mode: MapModes.WorldGen });
 
-  const game = GameComponent.getRequired(props.graph.root);
+  const game = GameContext.getRequired(props.graph.root);
   const playerTransform = TransformComponent.getRequired(
     game.data.activePlayer.node
   );
@@ -104,7 +104,7 @@ export function WorldMapComponent(props: { graph: Graph }) {
       const generateDistanceLines = CreateGreasedLine(
         "",
         {
-          points: GreasedLineTools.GetCircleLinePoints(200, 400, 0, 200),
+          points: GreasedLineTools.GetCircleLinePoints(300, 400, 0, 300),
         },
         {
           width: 5,
@@ -137,7 +137,7 @@ export function WorldMapComponent(props: { graph: Graph }) {
       const directionLine = CreateGreasedLine(
         "",
         {
-          points: [new Vector3(0, 0, 0), new Vector3(0, 150, 0)],
+          points: [new Vector3(0, 0, 0), new Vector3(150, 0, 0)],
         },
         {
           width: 5,
@@ -145,7 +145,8 @@ export function WorldMapComponent(props: { graph: Graph }) {
         },
         scene
       );
-      directionLine.rotation.x = Math.PI / 2;
+      //   directionLine.rotation.z = Math.PI / 2;
+      // directionLine.rotation.x = -Math.PI / 2;
       directionLine.parent = follow;
       directionLine.renderingGroupId = 3;
     }
@@ -156,7 +157,7 @@ export function WorldMapComponent(props: { graph: Graph }) {
       const axisLine1 = CreateGreasedLine(
         "",
         {
-          points: [new Vector3(0, 0, 0), new Vector3(0, 100, 0)],
+          points: [new Vector3(0, 0, 0), new Vector3(0, 0, -100)],
         },
         {
           width: 5,
@@ -164,7 +165,6 @@ export function WorldMapComponent(props: { graph: Graph }) {
         },
         scene
       );
-      axisLine1.rotation.x = Math.PI / 2;
       axisLine1.parent = parent;
       axisLine1.renderingGroupId = 3;
 
@@ -179,7 +179,6 @@ export function WorldMapComponent(props: { graph: Graph }) {
         },
         scene
       );
-      axisLine2.rotation.x = Math.PI / 2;
       axisLine2.parent = parent;
       axisLine2.renderingGroupId = 3;
 

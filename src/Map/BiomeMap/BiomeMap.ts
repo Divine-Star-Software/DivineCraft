@@ -1,7 +1,7 @@
 import { BiomeMapTilesRegister } from "./BiomeMapTilesRegister";
 import { Scene, Mesh, VertexBuffer, ShaderMaterial } from "@babylonjs/core";
 import { LocationData } from "@divinevoxel/vlox/Math";
-import { $2dMooreNeighborhood } from "@divinevoxel/vlox/Math/CardinalNeighbors.js";
+import { MooreNeighborhood2D } from "@divinevoxel/vlox/Math/CardinalNeighbors.js";
 import { Distance3D, Vec3Array } from "@amodx/math";
 import { Quad } from "../Quad";
 const alignToPowerOf2 = (value: number, powerOf2: number) => {
@@ -84,7 +84,7 @@ export class BiomeMap {
       const distance = Distance3D(tilePositon[0], 0, tilePositon[1], tx, 0, tz);
       if (distance > BiomeMap.Constants.TILE_SIZE * 2) continue;
 
-      for (const n of $2dMooreNeighborhood) {
+      for (const n of MooreNeighborhood2D) {
         const nx = tx + n[0] * BiomeMap.Constants.TILE_SIZE;
         const nz = tz + n[1] * BiomeMap.Constants.TILE_SIZE;
         const tilePOS = simpleCubeHash(nx, 0, nz),

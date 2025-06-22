@@ -10,7 +10,7 @@ export default function (props: { gameRoot: NodeCursor }) {
     <GameProvider gameRoot={props.gameRoot}>
       <div className="ui-screens">
         <BuildingScreen />
-        <SettingsScreen />
+ {/*        <SettingsScreen /> */}
       </div>
     </GameProvider>
   );

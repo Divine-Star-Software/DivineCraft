@@ -272,7 +272,7 @@ export class DimensionGenerator {
     return height;
   }
 
-  generateWorldColumn(chunkX: number, chunkZ: number) {
+  generateWorldSector(chunkX: number, chunkZ: number) {
     const { brush } = this.nodes;
 
     const dataTool = brush.dataCursor;
@@ -379,7 +379,7 @@ export class DimensionGenerator {
     }
   } */
 
-  decorateWorldColumn(chunkX: number, chunkZ: number) {
+  decorateWorldSector(chunkX: number, chunkZ: number) {
     const { brush } = this.nodes;
 
     for (let x = chunkX; x < this.nodes.chunkWidth + chunkX; x++) {

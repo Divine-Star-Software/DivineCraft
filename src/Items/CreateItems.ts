@@ -14,8 +14,7 @@ export function CreateItemManager(graph: Graph) {
 
   for (const voxelsStates of VoxelIndex.instance.stateArray) {
     for (const state of voxelsStates.stateArray) {
-      if (!SchemaRegister.voxelModSchemaData.has(voxelsStates.voxelId))
-        continue;
+      if (!SchemaRegister.modSchemaData.has(voxelsStates.voxelId)) continue;
       itemNodes.push(
         Node(
           {

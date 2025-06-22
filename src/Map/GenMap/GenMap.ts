@@ -10,11 +10,13 @@ import {
 } from "@babylonjs/core";
 import { LocationData } from "@divinevoxel/vlox/Math";
 import { WorldSpaces } from "@divinevoxel/vlox/World/WorldSpaces";
-import { $2dMooreNeighborhood } from "@divinevoxel/vlox/Math/CardinalNeighbors.js";
+import { MooreNeighborhood2D } from "@divinevoxel/vlox/Math/CardinalNeighbors.js";
 import { Distance3D, Vec3Array, Vector3Like } from "@amodx/math";
 import { GenMapTileMaterial } from "./GenMapTileMaterial";
 import { WorldRegister } from "@divinevoxel/vlox/World/WorldRegister";
 import { Quad } from "../Quad";
+
+const tempPosition = Vector3Like.Create();
 export class GenMap {
   static Constants = {
     MAX_TILES: 2_000,
@@ -29,6 +31,7 @@ export class GenMap {
   _instanceMesh: Mesh;
   _previousLocation: LocationData;
   _searchQueue: number[] = [];
+  _lastPosition = Vector3Like.Create(-Infinity, -Infinity, -Infinity);
   _visitedMap: Map<string, boolean> = new Map();
   constructor() {}
 
@@ -63,79 +66,102 @@ export class GenMap {
     this._colorBuffer = colorBuffer;
   }
 
+  _removed =  new Set<GenMapTile>();
   updateTiles(location: LocationData) {
     if (!this._previousLocation) {
       this._previousLocation = [...location];
     }
 
-    const worldColumnPOS = WorldSpaces.sector.getPosition(
-      location[1],
-      0,
-      location[3]
-    );
+    WorldSpaces.sector.getPosition(location[1], 0, location[3], tempPosition);
+    const worldColumnPOSX = tempPosition.x;
+    const worldColumnPOSY = tempPosition.y;
+    const worldColumnPOSZ = tempPosition.z;
 
-    this._searchQueue.push(
-      worldColumnPOS.x,
-      worldColumnPOS.y,
-      worldColumnPOS.z
-    );
+
+    let needActiveUpdate = true;
+    if (
+      this._lastPosition.x == worldColumnPOSX &&
+      this._lastPosition.y == worldColumnPOSY &&
+      this._lastPosition.z == worldColumnPOSZ
+    ) {
+      needActiveUpdate = false;
+    }
+    this._lastPosition.x = worldColumnPOSX;
+    this._lastPosition.y = worldColumnPOSY;
+    this._lastPosition.z = worldColumnPOSZ;
+
+    for (let i = 0; i < GenMapTile.Tiles.length; i++) {
+      GenMapTile.Tiles[i].update();
+      if (needActiveUpdate) {
+        const distance = Distance3D(
+          worldColumnPOSX,
+          0,
+          worldColumnPOSZ,
+          ...GenMapTile.Tiles[i].position
+        );
+        if (distance > 300) {
+          this._removed.add(GenMapTile.Tiles[i]);
+        }
+      }
+    }
+
+    if (!needActiveUpdate) {
+      this._instanceTool.mesh.thinInstanceBufferUpdated("tileColor");
+      return;
+    }
+    this._searchQueue.push(worldColumnPOSX, worldColumnPOSY, worldColumnPOSZ);
 
     while (this._searchQueue.length) {
       const cx = this._searchQueue.shift()!;
       const cy = this._searchQueue.shift()!;
       const cz = this._searchQueue.shift()!;
 
-      const sectorKey = WorldSpaces.hash.hashXYZ(cx, 0, cz);
-
+      const sectorKey = WorldSpaces.hash.hashXYZ(cx, cy, cz);
       if (this._visitedMap.has(sectorKey)) continue;
       this._visitedMap.set(sectorKey, true);
 
       const distance = Distance3D(
-        worldColumnPOS.x,
-        0,
-        worldColumnPOS.z,
+        worldColumnPOSX,
+        worldColumnPOSY,
+        worldColumnPOSZ,
         cx,
-        0,
+        cy,
         cz
       );
-      if (distance > 600) continue;
+      if (distance > 300) continue;
 
-      for (const n of $2dMooreNeighborhood) {
+      if (!this.tilesRegister.sectors.get(location[0], cx, cy, cz)) {
+        this.tilesRegister.sectors.add(location[0], cx, cy, cz);
+      }
+
+      for (const n of MooreNeighborhood2D) {
         const nx = cx + n[0] * WorldSpaces.sector.bounds.x;
         const nz = cz + n[1] * WorldSpaces.sector.bounds.z;
-        const columnPOS = WorldSpaces.sector.getPosition(nx, cy, nz);
-        const key = WorldSpaces.hash.hashXYZ(
-          columnPOS.x,
-          columnPOS.y,
-          columnPOS.z
+        const columnPOS = WorldSpaces.sector.getPosition(
+          nx,
+          cy,
+          nz,
+          tempPosition
         );
-        if (!this._visitedMap.has(key)) {
-          this._searchQueue.push(columnPOS.x, cy, columnPOS.z);
-        }
-      }
-
-      const sectorLocation: LocationData = [location[0], cx, 0, cz];
-      const sector = WorldRegister.sectors.get(
-        sectorLocation[0],
-        sectorLocation[1],
-        sectorLocation[2],
-        sectorLocation[3]
-      );
-      if (!sector) {
-        this.tilesRegister.sectors.remove(sectorLocation);
-      } else {
-        if (!this.tilesRegister.sectors.get(sectorLocation)) {
-          this.tilesRegister.sectors.add(sectorLocation, sector);
-        }
+        this._searchQueue.push(columnPOS.x, columnPOS.y, columnPOS.z);
       }
     }
 
-    this._instanceTool.update();
     this._visitedMap.clear();
-    for (let i = 0; i < GenMapTile.Tiles.length; i++) {
-      GenMapTile.Tiles[i].update();
+
+    if (GenMapTile.Tiles.length && this._removed.size) {
+      for (let i = GenMapTile.Tiles.length - 1; i > -1; i--) {
+        const tile = GenMapTile.Tiles[i];
+        if (this._removed.has(tile)) {
+          this.tilesRegister.sectors.remove(tile.dimensonId, ...tile.position);
+          GenMapTile.Tiles.splice(i, 1);
+        }
+      }
     }
+
+    this._removed.clear();
     this._instanceTool.mesh.thinInstanceBufferUpdated("tileColor");
+    this._instanceTool.mesh.thinInstanceBufferUpdated("matrix");
   }
   dispose() {
     this._instanceMesh.dispose();

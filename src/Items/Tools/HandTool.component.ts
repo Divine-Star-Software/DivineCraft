@@ -1,16 +1,15 @@
 import { ItemEvents, UseItemEvent } from "Items/Components/index";
 import { NCS } from "@amodx/ncs/";
-import { Vector3Like } from "@amodx/math";
-import { VoxelPlacerComponent } from "@dvegames/vlox/Core/Components/Voxels/Interaction/VoxelPlacer.component";
+import { Vector3Like, Vec3ArrayLike } from "@amodx/math";
 import {
   PlayerControlsComponent,
   PlayerInventoryComponent,
 } from "Player/Components/index";
 import { VoxelItemComponent } from "../Item/VoxelItem.component";
-import { RendererContext } from "@dvegames/vlox/Core/Contexts/Renderer.context";
-import { TaskTool } from "@divinevoxel/vlox/Tools/Tasks/TasksTool";
-import { AdvancedBrush } from "@divinevoxel/vlox/Tools/Brush/AdvancedBrushTool";
-
+import { VoxelPlaceStragetgyComponent } from "@dvegames/vlox/Interaction/VoxelPlaceStrategy.component";
+import { GameContext } from "Game.context";
+import { WorldCursor } from "@divinevoxel/vlox/World";
+import { VoxelCursor } from "@divinevoxel/vlox/Voxels/Cursor/VoxelCursor";
 export const HandToolComponent = NCS.registerComponent({
   type: "hand-tool",
   schema: NCS.schema({
@@ -20,11 +19,11 @@ export const HandToolComponent = NCS.registerComponent({
   data: NCS.data<() => void>(),
   init(component) {
     component = component.cloneCursor();
-    const { dve } = RendererContext.getRequired(component.node).data;
-    const brush = new AdvancedBrush(new TaskTool(dve.threads.constructors));
-    const useListener = (event: UseItemEvent) => {
-      const controls = PlayerControlsComponent.getRequired(event.origin);
+    const game = GameContext.getRequired(component.node)!.data;
 
+    const cursor = new WorldCursor();
+    const useListener = async (event: UseItemEvent) => {
+      const controls = PlayerControlsComponent.getRequired(event.origin);
       const picked = controls.data.pick();
       if (!picked) {
         controls.returnCursor();
@@ -33,7 +32,35 @@ export const HandToolComponent = NCS.registerComponent({
       const inventory = PlayerInventoryComponent.getRequired(event.origin);
       const item = inventory.data.getItem();
       if (event.actionButton == "secondary") {
-        brush.setXYZ(...picked.pickedPosition).eraseAndAwaitUpdate();
+        cursor.setFocalPoint(
+          0,
+          picked.position.x,
+          picked.position.y,
+          picked.position.z
+        );
+        const voxel = cursor.getVoxel(
+          picked.position.x,
+          picked.position.y,
+          picked.position.z
+        );
+        if (voxel && !voxel.isAir()) {
+          const id = voxel.getStringId();
+          const mod = voxel.getMod();
+          await game.dver.threads.world.runTaskAsync("erase-voxel", [
+            0,
+            picked.position.x,
+            picked.position.y,
+            picked.position.z,
+          ]);
+
+          game.voxelParticles.data.explodeAt(
+            picked.position.x,
+            picked.position.y,
+            picked.position.z,
+            id,
+            mod
+          );
+        }
 
         if (item) {
           item.events.dispatch(
@@ -50,15 +77,15 @@ export const HandToolComponent = NCS.registerComponent({
       }
       const voxelComp = VoxelItemComponent.get(item);
       if (voxelComp) {
-        const position = Vector3Like.AddArray(
-          picked.pickedPosition,
-          picked.pickedNormal
-        );
+        const position = Vector3Like.Add(picked.position, picked.normal);
+        const placer = VoxelPlaceStragetgyComponent.getRequired(event.origin);
+        placer.data.getState(voxelComp.schema.voxelData, picked as any);
 
-        brush
-          .setData(voxelComp.schema.voxelData)
-          .setXYZ(...position)
-          .paintAndUpdate();
+        await game.dver.threads.world.runTaskAsync("paint-voxel", [
+          [0, ...Vector3Like.ToArray(position)],
+          VoxelCursor.VoxelDataToRaw(voxelComp.schema.voxelData),
+        ]);
+
         item.events.dispatch(
           UseItemEvent.Event,
           new UseItemEvent(component.node, item, event.actionButton)

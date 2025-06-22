@@ -55,7 +55,7 @@ getHeight(x: number, y: number, z: number): number {
     if(y < 150) return true;
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && voxel == Voxels.Stone!) {
       brush.setData(VoxelData[Voxels.Snow]).setXYZ(x, y, z).paint();

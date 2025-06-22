@@ -26,7 +26,7 @@ export class BiomeMapTile {
   texture: RawTexture;
   async update() {
     const image =
-      await DivineVoxelEngineRender.instance.threads.constructors.runTaskAsync<
+      await DivineVoxelEngineRender.instance.threads.generators.runTaskAsync<
         GetBiomeImageTasks,
         Uint8ClampedArray
       >("get-biome-image", [

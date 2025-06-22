@@ -10,10 +10,6 @@ class Data {
 
   offHandInventory: (typeof InventoryComponent)["default"];
 
-  observers = {
-    activeIndexUpdate: new Observable<number>(),
-    offHandUpdated: new Observable(),
-  };
 
   constructor(
     public playerNode: NodeCursor,
@@ -22,12 +18,7 @@ class Data {
   ) {
     this.inventory = InventoryComponent.get(inventoryNode)!;
     this.offHandInventory = InventoryComponent.get(offHandInventoryNode)!;
-    inventoryNode.events.addListener(InventoryEvents.AddItem, () => {
-      this.observers.offHandUpdated.notify();
-    });
-    inventoryNode.events.addListener(InventoryEvents.RemoveItem, () => {
-      this.observers.offHandUpdated.notify();
-    });
+  
   }
 
   getOffHandItem() {

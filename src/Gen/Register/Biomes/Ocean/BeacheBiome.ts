@@ -45,7 +45,7 @@ export class BeacheBiome extends Biome {
   addTopLayer(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && voxel == Voxels.Stone) {
       brush.setData(VoxelData[Voxels.Sand]).setXYZ(x, y, z).paint();
@@ -73,7 +73,7 @@ export class BeacheBiome extends Biome {
   decorate(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && voxel == Voxels.GrassBlock) {
       const value = Math.random();

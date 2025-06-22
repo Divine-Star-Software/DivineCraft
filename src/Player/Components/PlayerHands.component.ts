@@ -1,12 +1,12 @@
 import { NCS, Node, NodeCursor } from "@amodx/ncs/";
 import { Tools } from "@babylonjs/core";
-import { FirstPersonCameraComponent } from "@dvegames/vlox/Babylon/Components/Cameras/FirstPersonCamera.component";
-import { NodeRefernceComponent } from "@dvegames/vlox/Core/Components/Base/NodeRefernce.component";
+import { FirstPersonCameraComponent } from "@dvegames/vlox/Babylon/Cameras/FirstPersonCamera.component";
+import { NodeRefernceComponent } from "@dvegames/vlox/NodeRefernce.component";
 import { PlayerInventoryComponent } from "./PlayerInventory.component";
 import { EquipItemEvent } from "Items/Components";
 import { InventoryEvents } from "Items/Components/Inventory/InventoryEvents";
-import { TransformComponent } from "@dvegames/vlox/Core/Components/Base/Transform.component";
-import { TransformNodeComponent } from "@dvegames/vlox/Babylon/Components/Base/TransformNode.component";
+import { TransformComponent } from "@dvegames/vlox/Transform.component";
+import { TransformNodeComponent } from "@dvegames/vlox/Babylon/TransformNode.component";
 
 export const PlayerHandsComponent = NCS.registerComponent({
   type: "player-hands",

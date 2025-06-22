@@ -22,7 +22,7 @@ export const GameScreensComponent = NCS.registerComponent({
       }
     }
 
-    let currentScreen = UIScreensIds.Settings;
+    let currentScreen = UIScreensIds.InGame;
     const cursor = component.schema.getCursor();
     const index = component.schema.getSchemaIndex();
     cursor.getOrCreateObserver(index.activeScreen).subscribe((value) => {

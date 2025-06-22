@@ -1,6 +1,6 @@
 import { NodeCursor } from "@amodx/ncs/";
 import React, { createContext, useContext, ReactNode } from "react";
-import { GameComponent } from "Game.component";
+import { GameContext as NCSGameContext } from "Game.context";
 
 interface GameContextType {
   gameRoot: NodeCursor;
@@ -16,11 +16,11 @@ export const GameProvider: React.FC<{
   );
 };
 
-export const useGame = (): (typeof GameComponent)["default"] => {
+export const useGame = (): (typeof NCSGameContext)["default"] => {
   const context = useContext(GameContext);
   if (context === undefined) {
     throw new Error("usePlayer must be used within a PlayerContext");
   }
 
-  return GameComponent.getRequired(context.gameRoot);
+  return NCSGameContext.getRequired(context.gameRoot);
 };

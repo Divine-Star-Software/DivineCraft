@@ -2,13 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { WorldMapComponent } from "Map/WorldMapComponent";
 import StartGame from "StartGame";
 import UI from "UI/UI";
-import { GameComponent } from "Game.component";
-
+import { GameContext } from "Game.context";
+//import "@babylonjs/inspector";
+import { Graph } from "@amodx/ncs";
 export function App() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [game, setGraph] = useState<(typeof GameComponent)["default"] | null>(
-    null
-  );
+  const [graph, setGraph] = useState<Graph | null>(null);
   const [mapEnabled, setMapEnabled] = useState(
     new URL(location.href).searchParams.get("gen-map")
   );
@@ -31,8 +30,9 @@ export function App() {
         overflow: "hidden",
       }}
     >
-      {game && mapEnabled && <WorldMapComponent graph={game.node.graph} />}
-      {game && <UI gameRoot={game.node} />}
+      {graph && mapEnabled && <WorldMapComponent graph={graph} />}
+      {graph && <UI gameRoot={graph.root} />}
+
       <canvas
         style={{
           width: "100%",

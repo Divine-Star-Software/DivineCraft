@@ -48,7 +48,7 @@ export class DarkOakForestBiome extends Biome {
   addTopLayer(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && voxel == Voxels.Stone!) {
       brush.setData(VoxelData[Voxels.GrassBlock]).setXYZ(x, y, z).paint();
@@ -69,16 +69,13 @@ export class DarkOakForestBiome extends Biome {
   decorate(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
 
     if (topAir && voxel == Voxels.GrassBlock) {
       const value = Math.random();
 
-      if (value > 0.97) {
-        Trees.generateDarkOakTree(x, y + 1, z);
-        return;
-      }
+   
       if (value > 0.85 && value < 0.89) {
         Plants.generateRandomFlower(this.nodes, x, y + 1, z);
         return;
@@ -86,6 +83,10 @@ export class DarkOakForestBiome extends Biome {
 
       if (value > 0.0 && value < 0.1) {
         Plants.generateRandomPlant(this.nodes, x, y + 1, z);
+        return;
+      }
+      if (value > 0.2 && value < .25) {
+        Trees.generateDarkOakTree(x, y + 1, z);
         return;
       }
     }

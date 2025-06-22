@@ -1,22 +1,23 @@
 import InitDVErenderer from "@divinevoxel/vlox-babylon/Init/Classic/InitDVEBRClassic";
 import { StartRenderer } from "@divinevoxel/vlox/Init/StartRenderer";
 import { CreateSphere, Engine, Scene } from "@babylonjs/core";
-
 import { textureData } from "Data/TextureData";
-import { SceneTool } from "@divinevoxel/vlox-babylon/Tools/SceneTool";
-
 import { voxelData } from "Data/VoxelData";
 import { NCS, Node } from "@amodx/ncs";
 import CreatePlayer from "./Player/CreatePlayer";
-import { BabylonContext } from "@dvegames/vlox/Babylon/Contexts/Babylon.context";
-import { GameComponent } from "Game.component";
+import { BabylonContext } from "@dvegames/vlox/Babylon/Babylon.context";
+import { GameContext } from "Game.context";
 import { PlayerComponent } from "Player/Components/Player.component";
 import { GameScreensComponent } from "Screens/GameScreens.component";
 import { UIScreensIds } from "Game.types";
 import { ScreenComponent } from "Screens/Screen.component";
 import { CreateItemManager } from "Items";
 import CreateDisplayIndex from "@divinevoxel/vlox-babylon/Init/CreateDisplayIndex";
-import { RendererContext } from "@dvegames/vlox/Core/Contexts/Renderer.context";
+import { RendererContext } from "@dvegames/vlox/Contexts/Renderer.context";
+import { InitSkybox } from "@divinevoxel/vlox-babylon/Init/Skybox/InitSkybox";
+import { VoxelWorldParticlesComponent } from "@dvegames/vlox/Particles/VoxelWorldParticles.component";
+import { CreateEnvironment } from "Environment/CreateEnvironment";
+import { TransformComponent } from "@dvegames/vlox/Transform.component";
 const worldWorker = new Worker(new URL("./Contexts/World/", import.meta.url), {
   type: "module",
 });
@@ -24,22 +25,35 @@ const worldWorker = new Worker(new URL("./Contexts/World/", import.meta.url), {
 const nexusWorker = new Worker(new URL("./Contexts/Nexus", import.meta.url), {
   type: "module",
 });
+const mesherWorkers: Worker[] = [];
+const halfThreads = Math.ceil((navigator.hardwareConcurrency - 3) / 2);
 
-const constructorWorkers: Worker[] = [];
-for (let i = 0; i < navigator.hardwareConcurrency - 3; i++) {
-  constructorWorkers.push(
-    new Worker(new URL("./Contexts/Constructor/", import.meta.url), {
+for (let i = 0; i < halfThreads; i++) {
+  mesherWorkers.push(
+    new Worker(new URL("./Contexts/Mesher/", import.meta.url), {
+      type: "module",
+    })
+  );
+}
+const generatorWorkers: Worker[] = [];
+for (let i = 0; i < halfThreads; i++) {
+  generatorWorkers.push(
+    new Worker(new URL("./Contexts/Generator/", import.meta.url), {
       type: "module",
     })
   );
 }
 export default async function (canvas: HTMLCanvasElement) {
   const engine = new Engine(canvas, true, {
+    disableWebGL2Support: false,
     doNotHandleContextLost: true,
+    powerPreference: "high-performance",
+    stencil: true,
   });
-  engine.doNotHandleContextLost = true;
   engine.enableOfflineSupport = false;
-
+  const glInfo = engine.getGlInfo();
+  console.log("Renderer:", glInfo.renderer);
+  console.log("Vendor:", glInfo.vendor);
   engine.setSize(window.innerWidth, window.innerHeight);
   window.addEventListener("resize", () => {
     engine.resize();
@@ -72,27 +86,13 @@ export default async function (canvas: HTMLCanvasElement) {
     renderer,
     worldWorker,
     nexusWorker,
-    constructorWorkers,
+    mesherWorkers,
+    generatorWorkers,
   });
 
   await CreateDisplayIndex(voxelData);
 
-  const skybox = CreateSphere("skyBox", { diameter: 400.0 }, scene);
-  skybox.isPickable = false;
-  skybox.infiniteDistance = true;
-  const skyboxMat = renderer.materials.get("dve_skybox");
-  if (skyboxMat) {
-    skybox.material = skyboxMat._material;
-    skybox.material!.backFaceCulling = false;
-  }
-  const sceneTool = new SceneTool();
-  sceneTool.fog.setDensity(0.000004);
-  sceneTool.fog.setColor(1, 1, 1);
-  sceneTool.options.doSun(true);
-  sceneTool.options.doAO(true);
-  sceneTool.options.doRGB(true);
-  sceneTool.levels.setSun(0.8);
-  sceneTool.levels.setBase(0.01);
+  const skybox = InitSkybox({ renderer });
 
   await DVER.threads.world.waitTillTaskExist("create-player");
 
@@ -100,30 +100,41 @@ export default async function (canvas: HTMLCanvasElement) {
   BabylonContext.set(graph.root, null, null, {
     scene,
     engine,
+    renderer,
   });
   RendererContext.set(graph.root, null, null, {
     dve: DVER,
   });
-  const game = GameComponent.set(graph.root);
 
+  const game = GameContext.set(graph.root);
+  game.data = {} as any;
+  game.data.dver = DVER;
+  console.warn(game, game.data);
+  game.data.voxelParticles = VoxelWorldParticlesComponent.set(graph.root);
   const player = await CreatePlayer(DVER, graph);
   game.data.activePlayer = PlayerComponent.getRequired(player);
+
+  game.data.environment = CreateEnvironment(graph);
+  const transform = TransformComponent.getRequired(player);
+  game.data.environment.data.positionAndDirection.data.position =
+    transform.schema.position;
 
   const screens = GameScreensComponent.getRequired(
     graph.addNode(
       Node(
         "Game Screens",
         [GameScreensComponent()],
-        ...Object.values(UIScreensIds).map((screenId) =>
-          Node(screenId, [
-            ScreenComponent({
-              id: screenId,
-            }),
-          ])
-        )
+        Node(UIScreensIds.InGame, [
+          ScreenComponent({
+            active: true,
+            id: UIScreensIds.InGame,
+          }),
+        ])
       )
     )
   );
+
+  
   game.data.screens = screens;
   setTimeout(() => {
     screens.schema.activeScreen = UIScreensIds.InGame;
@@ -146,6 +157,14 @@ export default async function (canvas: HTMLCanvasElement) {
   } else {
     DVER.threads.world.runTask("start-world", []);
   }
-
-  return game;
+  /* 
+  setTimeout(() => {
+    scene.debugLayer.show({
+      showExplorer: true,
+      showInspector: true,
+      globalRoot: document.getElementById("inspector")!,
+    });
+  }, 100);
+ */
+  return graph;
 }

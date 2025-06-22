@@ -1,4 +1,3 @@
-import { PerlinNoise3d, PerlinNoise2d } from "@amodx/rng";
 import alea from "alea";
 import {
   createNoise2D,

@@ -19,7 +19,7 @@ export class BirchForestBiome extends Biome {
   }
 
   getCarved(x: number, y: number, z: number): boolean {
-    return Caves.getCarved(x,y,z);
+    return Caves.getCarved(x, y, z);
   }
   getBlendtoHeight(x: number, y: number, z: number): number {
     return this.getHeight(x, y, z);
@@ -39,7 +39,6 @@ export class BirchForestBiome extends Biome {
     );
   }
   getHeight(x: number, y: number, z: number): number {
-
     let height = this.noiseQuery(x, 0, z) * 30 + this.nodes.minHeight;
     return height;
   }
@@ -47,7 +46,7 @@ export class BirchForestBiome extends Biome {
   addTopLayer(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
 
     if (topAir && voxel == Voxels.Stone!) {
@@ -69,15 +68,11 @@ export class BirchForestBiome extends Biome {
   decorate(x: number, y: number, z: number) {
     const brush = this.nodes.brush;
     const dataTool = brush.dataCursor;
-    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir() || true;
+    const topAir = dataTool.getVoxel(x, y + 1, z)?.isAir();
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && voxel == Voxels.GrassBlock) {
       const value = Math.random();
 
-      if (value > 0.97) {
-        Trees.generateBirchTree(x, y + 1, z);
-        return;
-      }
       if (value > 0.85 && value < 0.89) {
         Plants.generateRandomFlower(this.nodes, x, y + 1, z);
         return;
@@ -85,6 +80,11 @@ export class BirchForestBiome extends Biome {
 
       if (value > 0.0 && value < 0.1) {
         Plants.generateRandomPlant(this.nodes, x, y + 1, z);
+        return;
+      }
+
+      if (value > 0.2 && value < 0.25) {
+        Trees.generateBirchTree(x, y + 1, z);
         return;
       }
     }

@@ -1,6 +1,6 @@
 import { NCS } from "@amodx/ncs/";
 import { Camera, UniversalCamera, Vector3 } from "@babylonjs/core";
-import { BabylonContext } from "@dvegames/vlox/Babylon/Contexts/Babylon.context";
+import { BabylonContext } from "@dvegames/vlox/Babylon/Babylon.context";
 export const DebugCameraComponent = NCS.registerComponent({
   type: "debug-camera",
   data: NCS.data<{

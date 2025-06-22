@@ -3,8 +3,8 @@ import { Mesh } from "@babylonjs/core";
 
 import { DVEBRMesh } from "@divinevoxel/vlox-babylon/Meshes/DVEBRMesh";
 import { VoxelModelIndex } from "@divinevoxel/vlox/Voxels/Indexes/VoxelModelIndex";
-import { BabylonContext } from "@dvegames/vlox/Babylon/Contexts/Babylon.context";
-import { TransformNodeComponent } from "@dvegames/vlox/Babylon/Components/Base/TransformNode.component";
+import { BabylonContext } from "@dvegames/vlox/Babylon/Babylon.context";
+import { TransformNodeComponent } from "@dvegames/vlox/Babylon/TransformNode.component";
 import { CompactSubMesh } from "@divinevoxel/vlox/Mesher/Types/Mesher.types";
 export const VoxelModelComponent = NCS.registerComponent({
   type: "voxel-model",
@@ -23,6 +23,7 @@ export const VoxelModelComponent = NCS.registerComponent({
     const mesh = new Mesh("", scene);
 
     mesh.alwaysSelectAsActiveMesh = true;
+    
     const model = VoxelModelIndex.getModel(
       component.schema.voxelId,
       component.schema.voxelState
@@ -44,7 +45,7 @@ export const VoxelModelComponent = NCS.registerComponent({
     );
 
     mesh.isPickable = false;
-    mesh.renderingGroupId = 1;
+    mesh.renderingGroupId = 2;
     mesh.material = material;
     component.data = { mesh };
 

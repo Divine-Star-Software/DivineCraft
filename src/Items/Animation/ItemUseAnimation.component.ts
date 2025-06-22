@@ -4,9 +4,9 @@ import { Animation } from "@babylonjs/core/Animations/animation";
 
 import { Vec3Array, Vector3Like } from "@amodx/math";
 import { ItemEvents, UseItemEvent } from "Items/Components/index";
-import { NodeRefernceComponent } from "@dvegames/vlox/Core/Components/Base/NodeRefernce.component";
-import { TransformNodeComponent } from "@dvegames/vlox/Babylon/Components/Base/TransformNode.component";
-import { BabylonContext } from "@dvegames/vlox/Babylon/Contexts/Babylon.context";
+import { NodeRefernceComponent } from "@dvegames/vlox/NodeRefernce.component";
+import { TransformNodeComponent } from "@dvegames/vlox/Babylon/TransformNode.component";
+import { BabylonContext } from "@dvegames/vlox/Babylon/Babylon.context";
 
 const createAnimation = (
   mesh: TransformNode,

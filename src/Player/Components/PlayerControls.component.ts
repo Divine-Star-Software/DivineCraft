@@ -1,15 +1,17 @@
 import { NCS } from "@amodx/ncs/";
 import { Observable } from "@amodx/core/Observers";
 import { Controls, KeyDownEvent } from "@amodx/controls";
-import { BabylonContext } from "@dvegames/vlox/Babylon/Contexts/Babylon.context";
+import { BabylonContext } from "@dvegames/vlox/Babylon/Babylon.context";
 import { PlayerInventoryComponent } from "./PlayerInventory.component";
-import { FirstPersonCameraComponent } from "@dvegames/vlox/Babylon/Components/Cameras/FirstPersonCamera.component";
-import { VoxelInersectionComponent } from "@dvegames/vlox/Core/Components/Voxels/Interaction/VoxelIntersection.component";
-import { CameraDirectionComponent } from "@dvegames/vlox/Babylon/Components/Cameras/CameraDirection.component";
-import { PlayerControllerComponent } from "@dvegames/vlox/Player/Components/PlayerController.component";
+import { FirstPersonCameraComponent } from "@dvegames/vlox/Babylon/Cameras/FirstPersonCamera.component";
+import { VoxelInersectionComponent } from "@dvegames/vlox/Interaction/VoxelIntersection.component";
+import { CameraDirectionComponent } from "@dvegames/vlox/Babylon/Cameras/CameraDirection.component";
+import { PlayerControllerComponent } from "@dvegames/vlox/Debug/Player/PlayerController.component";
+import PickVoxel from "@divinevoxel/vlox/Voxels/Interaction/Functions/PickVoxel";
 import { PlayerToolsComponent } from "./PlayerTools.component";
 import { ToolIds } from "Items";
 import { UseItemEvent } from "Items/Components";
+import { WorldCursor } from "@divinevoxel/vlox/World";
 class Data {
   wheelUp = new Observable();
   wheelDown = new Observable();
@@ -17,6 +19,7 @@ class Data {
   toolToggle = new Observable();
   pointerLockEnabled = true;
   menuOpen = false;
+  dataCursor = new WorldCursor();
   constructor(
     public component: (typeof PlayerControlsComponent)["default"],
     public canvas: HTMLCanvasElement
@@ -40,17 +43,20 @@ class Data {
     const dir = CameraDirectionComponent.get(cam.node)!;
     const camPos = cam.data.camera.globalPosition;
     const camDir = dir.data.forwardDirection;
-
-    const intersection = VoxelInersectionComponent.get(this.component.node)!;
-
-    const found = intersection.data.pick(
-      [camPos.x, camPos.y, camPos.z],
-      [camDir.x, camDir.y, camDir.z],
-      15
-    );
     cam.returnCursor();
     dir.returnCursor();
-    return found ? intersection.data : null;
+    this.dataCursor.setFocalPoint(
+      0,
+      Math.floor(camPos.x),
+      Math.floor(camPos.y),
+      Math.floor(camPos.z)
+    );
+    return PickVoxel(
+      this.dataCursor,
+      [camPos.x, camPos.y, camPos.z],
+      [camDir.x, camDir.y, camDir.z],
+      12
+    );
   }
 }
 
@@ -182,7 +188,7 @@ export const PlayerControlsComponent = NCS.registerComponent<Data>({
             },
             action: (event) => {
               controller.data.controlObservers.moveForward.notify();
-              (event as KeyDownEvent).observers.onRelease.subscribeOnce(() => {
+              (event as KeyDownEvent).addEventListener("release", () => {
                 controller.data.controlObservers.moveForwardKeyUp.notify();
               });
             },
@@ -199,7 +205,7 @@ export const PlayerControlsComponent = NCS.registerComponent<Data>({
             },
             action: (event) => {
               controller.data.controlObservers.moveBackward.notify();
-              (event as KeyDownEvent).observers.onRelease.subscribeOnce(() => {
+              (event as KeyDownEvent).addEventListener("release", () => {
                 controller.data.controlObservers.moveBackwardKeyUp.notify();
               });
             },
@@ -216,7 +222,7 @@ export const PlayerControlsComponent = NCS.registerComponent<Data>({
             },
             action: (event) => {
               controller.data.controlObservers.moveLeft.notify();
-              (event as KeyDownEvent).observers.onRelease.subscribeOnce(() => {
+              (event as KeyDownEvent).addEventListener("release", () => {
                 controller.data.controlObservers.moveLeftKeyUp.notify();
               });
             },
@@ -233,7 +239,7 @@ export const PlayerControlsComponent = NCS.registerComponent<Data>({
             },
             action: (event) => {
               controller.data.controlObservers.moveRight.notify();
-              (event as KeyDownEvent).observers.onRelease.subscribeOnce(() => {
+              (event as KeyDownEvent).addEventListener("release", () => {
                 controller.data.controlObservers.moveRightKeyUp.notify();
               });
             },

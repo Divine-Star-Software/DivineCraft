@@ -1,14 +1,5 @@
 import { Mesh, TransformNode, VertexBuffer, VertexData } from "@babylonjs/core";
-import { TransformComponent } from "@dvegames/vlox/Core/Components/Base/Transform.component";
-import { TextureId } from "@divinevoxel/vlox/Textures/index";
-import { TextureManager } from "@divinevoxel/vlox/Textures/TextureManager";
 import { NCS } from "@amodx/ncs/";
-import { TransformNodeComponent } from "@dvegames/vlox/Babylon/Components/Base/TransformNode.component";
-import { Vector3Like } from "@amodx/math";
-import { BabylonContext } from "@dvegames/vlox/Babylon/Contexts/Babylon.context";
-import { MeshTexture } from "@divinevoxel/vlox/Mesher/Functions/MeshTexture";
-//import { TextureRegister } from "@divinevoxel/vlox/Textures/TextureRegister";
-import { DVEBRMesh } from "@divinevoxel/vlox-babylon/Meshes/DVEBRMesh";
 export const TextureModelComponent = NCS.registerComponent({
   type: "texture-model",
   schema: NCS.schema({

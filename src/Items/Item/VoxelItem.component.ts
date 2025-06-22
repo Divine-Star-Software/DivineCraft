@@ -2,11 +2,11 @@ import { NCS, Node } from "@amodx/ncs/";
 import { PaintVoxelData } from "@divinevoxel/vlox/Voxels";
 import { EquipItemEvent, ItemEvents } from "../Components/index";
 import { VoxelModelComponent } from "../Models/VoxelModel.component";
-import { TransformComponent } from "@dvegames/vlox/Core/Components/Base/Transform.component";
+import { TransformComponent } from "@dvegames/vlox/Transform.component";
 import { ItemUseAnimationTrait } from "../Animation/ItemUseAnimation.component";
-import { NodeRefernceComponent } from "@dvegames/vlox/Core/Components/Base/NodeRefernce.component";
+import { NodeRefernceComponent } from "@dvegames/vlox/NodeRefernce.component";
 import { Tools } from "@babylonjs/core";
-import { TransformNodeComponent } from "@dvegames/vlox/Babylon/Components/Base/TransformNode.component";
+import { TransformNodeComponent } from "@dvegames/vlox/Babylon/TransformNode.component";
 export const VoxelItemComponent = NCS.registerComponent({
   type: "voxel-item",
   schema: NCS.schema({
