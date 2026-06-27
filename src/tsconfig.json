@@ -1,20 +1,19 @@
 {
+  "include": ["**/*"],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "rootDir": "./",
     "rootDirs": [],
-    "composite": true,
-    "types": ["react"],
-    "outDir": "../dist/",
+    "composite": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {},
     "strict": true,
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "jsx": "react-jsx"
+    "noEmit": true,
+    "moduleResolution": "Bundler",
+    "paths": {
+      "*": ["./*"]
+    }
   }
 }

@@ -1,11 +1,32 @@
 /* Inventory.css */
-
+.dragging-item-node {
+  width: 64px;
+  height: 64px;
+  background-color: none;
+  user-select: none;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  touch-action: none;
+  cursor: grabbing;
+  &:hover {
+    cursor: grabbing;
+  }
+  .item-image {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+  }
+}
 .inventory {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
-
 }
 
 .inventory-row {
@@ -22,10 +43,7 @@
   justify-content: center;
   font-size: 16px;
   color: #fff;
-  cursor: pointer;
 }
-
-
 
 .item {
   width: 100%;
@@ -33,6 +51,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
+  cursor: grab;
+  position: relative;
+
+  &.custom::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: conic-gradient(
+      red,
+      orange,
+      yellow,
+      green,
+      cyan,
+      blue,
+      violet,
+      red
+    );
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover {
+    cursor: grab;
+  }
+
   > img {
     width: 90%;
     height: 90%;

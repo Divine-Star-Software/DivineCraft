@@ -288,8 +288,8 @@ export const voxelData: VoxelData[] = [
     id: "f186c5f1",
     name: "dc_glow_stone",
     properties: {
-      dve_substance: "dve_glow",
-      dve_rendered_material: "dve_glow",
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
       dve_is_light_source: true,
       dve_light_value: [15, 15, 15],
       dve_collider_id: "dve_cube",
@@ -324,8 +324,8 @@ export const voxelData: VoxelData[] = [
     id: "c8f7ed8e",
     name: "dc_sea_lantern",
     properties: {
-      dve_substance: "dve_glow",
-      dve_rendered_material: "dve_glow",
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
       dve_is_light_source: true,
       dve_light_value: [15, 15, 15],
       dve_collider_id: "dve_cube",
@@ -360,8 +360,8 @@ export const voxelData: VoxelData[] = [
     id: "ab4662d0",
     name: "dc_redstone_lamp",
     properties: {
-      dve_substance: "dve_glow",
-      dve_rendered_material: "dve_glow",
+      dve_substance: "dve_solid",
+      dve_rendered_material: "dve_solid",
       dve_is_light_source: false,
       dve_light_value: [15, 15, 15],
       dve_collider_id: "dve_cube",
@@ -559,7 +559,7 @@ export const voxelData: VoxelData[] = [
       ],
 
       dve_model_data: {
-        id: "dve_simple_thin_panel",
+        id: "dve_simple_transparent_thin_panel",
         inputs: {
           "*": {
             upDownTextures: "dc_oak_trapdoor",
@@ -908,7 +908,7 @@ export const voxelData: VoxelData[] = [
       ],
 
       dve_model_data: {
-        id: "dve_simple_thin_panel",
+        id: "dve_simple_transparent_thin_panel",
         inputs: {
           "*": {
             upDownTextures: "dc_dark_oak_trapdoor",
@@ -1182,7 +1182,7 @@ export const voxelData: VoxelData[] = [
       ],
 
       dve_model_data: {
-        id: "dve_simple_thin_panel",
+        id: "dve_simple_transparent_thin_panel",
         inputs: {
           "*": {
             upDownTextures: "dc_acacia_trapdoor",
@@ -1458,7 +1458,7 @@ export const voxelData: VoxelData[] = [
       ],
 
       dve_model_data: {
-        id: "dve_simple_thin_panel",
+        id: "dve_simple_transparent_thin_panel",
         inputs: {
           "*": {
             upDownTextures: "dc_birch_trapdoor",
@@ -1733,7 +1733,7 @@ export const voxelData: VoxelData[] = [
       ],
 
       dve_model_data: {
-        id: "dve_simple_thin_panel",
+        id: "dve_simple_transparent_thin_panel",
         inputs: {
           "*": {
             upDownTextures: "dc_spruce_trapdoor",

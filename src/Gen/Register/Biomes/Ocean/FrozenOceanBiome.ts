@@ -36,12 +36,12 @@ export class FrozenOceanBiome extends Biome {
   }
   getHeight(x: number, y: number, z: number): number {
     let height =
-      this.nodes.minHeight -
+      this.nodes.waterHeight -
       ((1 +
         this.nodes.noise.worldGenNoise(
           (x + xOffSet) / scale,
           0,
-          (z + zOffSet) / scale
+          (z + zOffSet) / scale,
         )) /
         2) *
         40;
@@ -83,10 +83,8 @@ export class FrozenOceanBiome extends Biome {
     brush.setName(Voxels.Ice).setXYZ(x, this.nodes.waterHeight, z).paint();
     let i = y;
     brush.setName(Voxels.Water).setLevel(7);
-    while (i <= this.nodes.waterHeight - 1) {
-      if (y < this.nodes.waterHeight - 1) {
-        brush.setXYZ(x, i, z).paint();
-      }
+    while (i < this.nodes.waterHeight) {
+      brush.setXYZ(x, i, z).paint();
       i++;
     }
     brush.setLevel(0);
@@ -98,7 +96,7 @@ export class FrozenOceanBiome extends Biome {
     const topAir =
       topVoxel?.isAir() ||
       (topVoxel?.isRenderable() &&
-      dataTool.getVoxel(x, y + 1, z)!.getSubstanceData()["dve_is_liquid"])  ||
+        dataTool.getVoxel(x, y + 1, z)!.getSubstanceData()["dve_is_liquid"]) ||
       false;
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
     if (topAir && (voxel == Voxels.Dirt || voxel == Voxels.Sand)) {

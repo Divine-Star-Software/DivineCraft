@@ -46,7 +46,7 @@ export class RockyBeacheBiome extends Biome {
     );
   }
   getHeight(x: number, y: number, z: number): number {
-    let height = this.noiseQuery(x, 0, z) * 30 + this.nodes.minHeight;
+    let height = this.noiseQuery(x, 0, z) * 10 + this.nodes.minHeight;
     return height;
   }
 

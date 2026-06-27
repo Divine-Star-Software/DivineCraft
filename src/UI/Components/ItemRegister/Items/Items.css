@@ -5,8 +5,8 @@
   height: 100%;
   margin: auto;
   padding: 10px;
-  margin-left: 20px;
-  margin-right: 30px;
+  margin-left: auto;
+  margin-right: auto;
   overflow: hidden;
   max-width: 1000px;
   .search {
@@ -42,12 +42,14 @@
     height: 90%;
     gap: 0;
     .item-node {
-
       width: 64px;
       height: 64px;
       background-color: #29210a;
       border-radius: 10px;
       margin: 3px 3px 3px 3px;
+      &:hover {
+        cursor: grab;
+      }
       .item-image {
         width: 64px;
         height: 64px;

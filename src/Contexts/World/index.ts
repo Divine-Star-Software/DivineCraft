@@ -8,11 +8,15 @@ import { TransformComponent } from "@dvegames/vlox/Transform.component";
 import { Threads } from "@amodx/threads";
 import { LocationData } from "@divinevoxel/vlox/Math";
 import { RawVoxelData } from "@divinevoxel/vlox";
+import { VoxelBuildSpaceWorld } from "@divinevoxel/vlox/Builder/World/VoxelBuildSpaceWorld";
+import { CachedBiomeRegister } from "Gen/Register/Cached/CachedBiomeRegister";
 
 //const worldStorage = new WorldStorage();
 const DVEW = await StartWorld({
   // worldStorage,
 });
+const buildSpace = new VoxelBuildSpaceWorld();
+WorldSimulation.doTickUpdates = false;
 //await worldStorage.init("divine-craft", DVEW.threads.constructors);
 WorldSimulation.init({
   // worldStorage,
@@ -21,28 +25,13 @@ WorldSimulation.init({
   generators: DVEW.threads.generators,
 });
 
-const dimension = WorldSimulation.getDimension(0);
-
-const brush = dimension.getBrush();
-Threads.registerTask<[LocationData, RawVoxelData]>(
-  "paint-voxel",
-  async ([location, raw]) => {
-    brush.setXYZ(location[1], location[2], location[3]);
-    brush.setRaw(raw);
-    await brush.paintAsync();
-  }
-);
-Threads.registerTask<LocationData>("erase-voxel", async (location) => {
-  brush.setXYZ(location[1], location[2], location[3]);
-  await brush.eraseAsync();
-});
 const tickInterval = new TickInterval(() => WorldSimulation.tick(), 50);
 
 const graph = NCS.createGraph();
 let player: NodeCursor | null = null;
 Threads.registerTask<LocationData>("log-sector", async (data) => {
   const activeSector = WorldSimulationDimensions.getDimension(
-    data[0]
+    data[0],
   )!.activeSectors.get(data[1], data[2], data[3]);
   if (!activeSector) {
     console.error("Could not find sector at:", data);
@@ -56,6 +45,51 @@ Threads.registerTask<LocationData>("log-sector", async (data) => {
 });
 Threads.registerTask<CreateNodeData>("create-player", async (data) => {
   player = graph.addNode(data).cloneCursor();
+});
+
+WorldSimulation.Tasks.worldLoadTasks.addSubTask({
+  id: "biome-cache-load",
+  generationTask: true,
+  checkInRequired: false,
+  async run(dimesnion, location, taskId, task) {
+    const [dimension, x, y, z] = location;
+    const sector = CachedBiomeRegister.get(dimension, x, y, z);
+    if (sector) return task.completeSubTask(taskId);
+    if (!WorldSimulation.Tools.worldStorage) {
+      const newSector = CachedBiomeRegister.new(dimension, x, y, z);
+      DVEW.threads.generators.runTaskForAll(
+        "sync-biome-cache",
+        newSector.toJSON(),
+      );
+      return task.completeSubTask(taskId);
+    }
+
+    const newSector = CachedBiomeRegister.new(dimension, x, y, z);
+    DVEW.threads.generators.runTaskForAll(
+      "sync-biome-cache",
+      newSector.toJSON(),
+    );
+    task.completeSubTask(taskId);
+  },
+});
+WorldSimulation.Tasks.unloadTasks.addSubTask({
+  id: "biome-cache-load",
+  generationTask: true,
+  checkInRequired: false,
+  async run(dimesnion, location, taskId, task) {
+    const [dimension, x, y, z] = location;
+    const sector = CachedBiomeRegister.get(dimension, x, y, z);
+    if (!sector) return task.completeSubTask(taskId);
+    if (!WorldSimulation.Tools.worldStorage) {
+      CachedBiomeRegister.delete(dimension, x, y, z);
+      DVEW.threads.generators.runTaskForAll("desync-biome-cache", location);
+      return task.completeSubTask(taskId);
+    }
+
+    CachedBiomeRegister.delete(dimension, x, y, z);
+    DVEW.threads.generators.runTaskForAll("desync-biome-cache", location);
+    task.completeSubTask(taskId);
+  },
 });
 Threads.registerTask("start-world", async () => {
   if (!player) throw new Error(`Player not created yet`);

@@ -17,12 +17,16 @@ export class ItemSearchManager {
     this.searchUpdated.notify();
   }
 
-
-  static createFilter(id:string,value:any)  : [id:string,value:any] {
-    return [id,value];
+  static isSearching() {
+    if (this.search || this.filters.length) return true;
+    return false;
   }
 
-  static setFilter(v:[id:string,value:any]) {
+  static createFilter(id: string, value: any): [id: string, value: any] {
+    return [id, value];
+  }
+
+  static setFilter(v: [id: string, value: any]) {
     this.filters.push(v);
     this.filterAdded.notify(v);
     this.filtersUpdated.notify();
@@ -32,7 +36,7 @@ export class ItemSearchManager {
   static removeFilter(v: any) {
     const i = this.filters.findIndex((_) => _ == v);
     if (i < 0) return;
-    this.filters.splice(i,1);
+    this.filters.splice(i, 1);
     this.filterRemoved.notify(v);
     this.filtersUpdated.notify();
   }

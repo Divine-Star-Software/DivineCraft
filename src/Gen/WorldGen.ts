@@ -13,9 +13,9 @@ import { Vec3Array } from "@amodx/math";
 import { Trees } from "./Register/Biomes/Tree";
 import { Coral } from "./Register/Biomes/Coral";
 import { Caves } from "./Register/Biomes/Caves";
-
+import { VoxelData, Voxels } from "./Register/Biomes/Voxels";
+import { PaintVoxelData } from "@divinevoxel/vlox/Voxels";
 const brush = new WorldGenBrush();
-let clearTimer: any;
 export class WorldGen implements WorldGenInterface {
   static instance: WorldGen;
   nodes: GenNodes;
@@ -54,12 +54,12 @@ export class WorldGen implements WorldGenInterface {
     dimension: number,
     cx: number,
     y: number,
-    cz: number
+    cz: number,
   ): Promise<any> {
     brush.start(dimension, cx, y, cz);
     this.overWorldGen.generateWorldSector(cx, cz);
 
-/*     for (let x = cx; x < cx + 16; x++) {
+    /*     for (let x = cx; x < cx + 16; x++) {
       for (let z = cz; z < cz + 16; z++) {
         for (let y = 0; y < 70; y++) {
           brush.setName("dc_stone").setXYZ(x, y, z).paint();
@@ -73,12 +73,10 @@ export class WorldGen implements WorldGenInterface {
     dimension: number,
     x: number,
     y: number,
-    z: number
+    z: number,
   ): Promise<any> {
     brush.start(dimension, x, y, z);
     this.overWorldGen.decorateWorldSector(x, z);
-    clearTimeout(clearTimer);
-    clearTimer = setTimeout(() => this.overWorldGen.clearCache(), 60_000);
     brush.stop();
   }
 }
@@ -86,7 +84,7 @@ export type GetBiomeImageTasks = [start: Vec3Array, end: Vec3Array];
 Threads.registerTask<GetBiomeImageTasks>("get-biome-image", ([start, end]) => {
   const image = WorldGen.instance.overWorldGen.generateBiomeTypeImage(
     start,
-    end
+    end,
   );
   return [image, [image.buffer]];
 });

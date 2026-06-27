@@ -1,4 +1,4 @@
-.ui-screens {
+.ui-screen {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -6,11 +6,25 @@
   top: 0;
   margin: 0;
   padding: 0;
-
-  .ui-screen {
-    display: block;
-    &.hidden {
-      display: none;
-    }
+  display: block;
+  pointer-events: none;
+  z-index: 10;
+  &.hidden {
+    display: none;
+  }
+}
+.ui-widget {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  pointer-events: none;
+  z-index: 100;
+  &.hidden {
+    display: none;
   }
 }

@@ -70,7 +70,7 @@ export abstract class BiomeType {
             : data.edgeFactor[3]),
       ];
 
-      const otherBiome = this.dimesnion.getBiomeTypeFromValue(edgeFactorUp);
+      const otherBiome = this.dimesnion.biomes.getBiomeTypeFromValue(edgeFactorUp);
       if (
         (bestRange.excludeRiver || this.range.excludeRiver) &&
         otherBiome.isRiver
@@ -100,7 +100,7 @@ export abstract class BiomeType {
             : data.edgeFactor[3]),
       ];
 
-      const otherBiome = this.dimesnion.getBiomeTypeFromValue(edgeFactorDown);
+      const otherBiome = this.dimesnion.biomes.getBiomeTypeFromValue(edgeFactorDown);
       if (
         (bestRange.excludeRiver || this.range.excludeRiver) &&
         otherBiome.isRiver
@@ -140,7 +140,7 @@ export abstract class BiomeType {
   }
   getBiome(x: number, y: number, z: number) {
     const value = this.getBiomeValue(x, y, z);
-    const typeValue = this.dimesnion.getBiomeTypeValue(x, y, z);
+    const typeValue = this.dimesnion.biomes.getBiomeTypeValue(x, y, z);
 
     return this.getBiomeFromValue(typeValue, value);
 
