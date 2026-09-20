@@ -7,11 +7,12 @@ import { Plants } from "../Plants";
 import { Caves } from "../Caves";
 import { getBiomeRange } from "Gen/Biome.types";
 const [xOffSet, zOffSet] = [1000, 10000];
-const scale = 480;
+const scale = 50;
 export class RiverBiome extends Biome {
   static data: BiomeData = {
     id: "river",
     heightBlendFactor: 0.25,
+    maxHeight: 59,
     color: [3, 206, 252],
     edgeFactor: [0.0, 0.0, 0.0, [0.1, 0.3]],
     edgeBiomes: [[RiverBankBiome.data.id, getBiomeRange()]],
@@ -26,21 +27,18 @@ export class RiverBiome extends Biome {
   getCarved(x: number, y: number, z: number): boolean {
     return Caves.getCarved(x, y, z);
   }
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.nodes.waterHeight;
-  }
+
   getHeight(x: number, y: number, z: number): number {
     let height =
       this.nodes.waterHeight -
-      5 -
       ((1 +
         this.nodes.noise.worldGenNoise(
           (x + xOffSet) / scale,
           0,
-          (z + zOffSet) / scale
+          (z + zOffSet) / scale,
         )) /
         2) *
-        5;
+        10;
 
     return height;
   }
@@ -61,7 +59,7 @@ export class RiverBiome extends Biome {
       (topVoxel?.isRenderable() &&
         dataTool.getVoxel(x, y + 1, z)!.getSubstanceData()["dve_is_liquid"]);
     const voxel = dataTool.getVoxel(x, y, z)?.getName();
- 
+
     if (topAir && voxel == Voxels.Stone!) {
       brush
         .setName(this.getLayerVoxel(x, y, z))
@@ -84,9 +82,7 @@ export class RiverBiome extends Biome {
     let i = y;
     brush.setName(Voxels.Water).setLevel(7);
     while (i <= this.nodes.waterHeight) {
-      if (y < this.nodes.waterHeight) {
-        brush.setXYZ(x, i, z).paint();
-      }
+      brush.setXYZ(x, i, z).paint();
       i++;
     }
     brush.setLevel(0);

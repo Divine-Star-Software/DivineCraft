@@ -23,9 +23,6 @@ export class IcyBeacheBiome extends Biome {
   getCarved(x: number, y: number, z: number): boolean {
     return Caves.getCarved(x, y, z);
   }
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.nodes.waterHeight;
-  }
   getHeight(x: number, y: number, z: number): number {
 
     let height =

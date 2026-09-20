@@ -56,7 +56,7 @@ export const VoxelItemComponent = NCS.registerComponent({
             nodeIndex: event.item.index,
           }),
           TransformComponent({
-            position: { x: 0, y: 0, z: 0.5 },
+            position: { x: 0, y: 0.55, z: 0.5 },
             rotation: {
               x: 0,
               y: Tools.ToRadians(event.actionButton == "primary" ? 25 : -25),
@@ -84,7 +84,7 @@ export const VoxelItemComponent = NCS.registerComponent({
             },
             endPosition: {
               x: event.actionButton == "primary" ? 0.2 : -0.2,
-              y: 0.0,
+              y: 0.55,
               z: 0.7,
             },
           }),

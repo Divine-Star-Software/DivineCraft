@@ -13,6 +13,7 @@ export class BeacheBiome extends Biome {
     color: [252, 252, 3],
     edgeBiomes: [],
     minHeight: 60,
+  
   };
   caveCarver = new StandardCaves(this.nodes);
 
@@ -22,9 +23,6 @@ export class BeacheBiome extends Biome {
 
   getCarved(x: number, y: number, z: number): boolean {
     return Caves.getCarved(x, y, z);
-  }
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.nodes.waterHeight;
   }
   noiseQuery(x: number, y: number, z: number) {
     return (

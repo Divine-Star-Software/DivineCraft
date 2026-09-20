@@ -6,6 +6,7 @@ import { Vec3Array } from "@amodx/math";
 export type BiomeData = {
   id: string;
   minHeight?: number;
+  maxHeight?: number;
   edgeFactor?: BiomeEdgeFactor;
   heightBlendFactor: number;
   edgeBiomes: [id: string, BiomeRange][];
@@ -55,7 +56,15 @@ export abstract class Biome {
     }
 
     if (totalWeight === 0) return this.getHeight(x, y, z);
-    return Math.round(totalHeight / totalWeight);
+    const height = Math.max(
+      this.getData().minHeight ? this.getData().minHeight! + 1 : 0,
+      Math.round(totalHeight / totalWeight),
+    );
+    const maxHeight = this.getData().maxHeight;
+    if (maxHeight !== undefined) {
+      if (height > maxHeight) return maxHeight;
+    }
+    return height;
   }
 
   abstract getGenVoxel(
@@ -64,7 +73,6 @@ export abstract class Biome {
     z: number,
   ): Partial<PaintVoxelData> | false;
   abstract getCarved(x: number, y: number, z: number): boolean;
-  abstract getBlendtoHeight(x: number, y: number, z: number): number;
   abstract getHeight(x: number, y: number, z: number): number;
   abstract decorate(x: number, y: number, z: number): void;
   abstract fill(x: number, y: number, z: number): void;

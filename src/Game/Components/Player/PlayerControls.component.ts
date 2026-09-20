@@ -3,7 +3,7 @@ import { Observable } from "@amodx/core/Observers";
 import { Controls, KeyDownEvent, PointerDownEvent } from "@amodx/controls";
 import { BabylonContext } from "@dvegames/vlox/Babylon/Babylon.context";
 import { PlayerInventoryComponent } from "./PlayerInventory.component";
-import { FirstPersonCameraComponent } from "@dvegames/vlox/Babylon/Cameras/FirstPersonCamera.component";
+import { FirstPersonCameraComponent } from "../Babylon";
 import { VoxelInersectionComponent } from "@dvegames/vlox/Interaction/VoxelIntersection.component";
 import { CameraDirectionComponent } from "@dvegames/vlox/Babylon/Cameras/CameraDirection.component";
 import { PlayerControllerComponent } from "@dvegames/vlox/Debug/Player/PlayerController.component";
@@ -31,7 +31,7 @@ class Data {
     public component: (typeof PlayerControlsComponent)["default"],
     public canvas: HTMLCanvasElement,
   ) {
-    window.addEventListener("click", () => {
+    this.canvas.addEventListener("click", () => {
       if (this.pointerLockEnabled) {
         this.enterLock();
       }

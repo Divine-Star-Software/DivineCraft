@@ -216,7 +216,10 @@ export const textureData: TextureData[] = [
     variations: ["red", "white", "pink", "orange"],
   },
   {
-    id: "dc_waterlily_flower",
+    id: "dc_flower_rose",
+  },
+  {
+    id: "dc_flower_dandelion",
   },
   {
     id: "dc_vine",

@@ -25,9 +25,6 @@ export class TundraBiome extends Biome {
     return Caves.getCarved(x, y, z);
   }
 
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.getHeight(x, y, z);
-  }
   noiseQuery(x: number, y: number, z: number) {
     return (
       (1 +

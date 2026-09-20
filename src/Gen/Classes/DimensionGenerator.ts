@@ -27,7 +27,6 @@ export class DimensionGenerator {
       const biomeType = new biomeClass(this.nodes, this, range);
       this.biomes.registerType(biome, biomeType);
     }
-    console.log("done", this.biomes);
   }
   getRiverNoise(x: number, y: number, z: number) {
     const warpScale = 1600;

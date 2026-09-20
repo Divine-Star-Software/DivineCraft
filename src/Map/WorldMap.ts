@@ -304,7 +304,7 @@ export function WorldMap() {
             flexDirection: "column",
           },
         },
-        elm(
+  /*       elm(
           "button",
           {
             onclick: () => {
@@ -327,7 +327,7 @@ export function WorldMap() {
             },
           },
           "Biome",
-        ),
+        ), */
       ),
       canvas,
     ),

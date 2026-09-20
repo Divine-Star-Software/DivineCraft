@@ -32,9 +32,6 @@ export class TropicalOceanBiome extends Biome {
   getCarved(x: number, y: number, z: number): boolean {
     return Caves.getCarved(x, y, z);
   }
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.nodes.waterHeight;
-  }
   getHeight(x: number, y: number, z: number): number {
     let height =
       this.nodes.minHeight -
@@ -42,7 +39,7 @@ export class TropicalOceanBiome extends Biome {
         this.nodes.noise.worldGenNoise(
           (x + xOffSet) / scale,
           0,
-          (z + zOffSet) / scale
+          (z + zOffSet) / scale,
         )) /
         2) *
         40;
@@ -76,9 +73,7 @@ export class TropicalOceanBiome extends Biome {
     let i = y;
     brush.setName(Voxels.Water).setLevel(7);
     while (i <= this.nodes.waterHeight) {
-      if (y < this.nodes.waterHeight) {
-        brush.setXYZ(x, i, z).paint();
-      }
+      brush.setXYZ(x, i, z).paint();
       i++;
     }
     brush.setLevel(0);

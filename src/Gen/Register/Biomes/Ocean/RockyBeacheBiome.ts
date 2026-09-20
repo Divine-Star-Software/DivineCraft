@@ -23,9 +23,6 @@ export class RockyBeacheBiome extends Biome {
   getCarved(x: number, y: number, z: number): boolean {
     return Caves.getCarved(x, y, z);
   }
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.nodes.waterHeight;
-  }
   getFillVoxel(x: number, y: number, z: number, top = false) {
     const value =
       (1 + this.nodes.noise.worldGenNoise(x / 200, y / 200, z / 200)) / 2;
@@ -40,7 +37,7 @@ export class RockyBeacheBiome extends Biome {
         this.nodes.noise.worldGenNoise(
           (x + xOffSet) / scale,
           y / scale,
-          (z + zOffSet) / scale
+          (z + zOffSet) / scale,
         )) /
       2
     );
@@ -76,12 +73,10 @@ export class RockyBeacheBiome extends Biome {
     let i = y;
 
     while (i <= this.nodes.waterHeight) {
-      if (y < this.nodes.waterHeight) {
-        brush
-          .setName(this.getFillVoxel(x, y, z))
-          .setXYZ(x, i, z)
-          .paint();
-      }
+      brush
+        .setName(this.getFillVoxel(x, y, z))
+        .setXYZ(x, i, z)
+        .paint();
       i++;
     }
   }

@@ -58,7 +58,6 @@ export class GameManager {
     game.data = {} as any;
     const DVER = DivineVoxelEngineRender.instance;
     game.data.DVER = DVER;
-    console.warn(game, game.data);
     game.data.voxelParticles = VoxelWorldParticlesComponent.set(
       this.currentGameNode,
     );
@@ -71,26 +70,12 @@ export class GameManager {
       transform.schema.position;
 
     game.data.screens = this.screens;
-    setTimeout(() => {
-      this.screens.schema.activeScreen = UIScreensIds.Building;
-    }, 100);
 
     game.data.gameSpace = GameSpaceComponent.set(this.currentGameNode);
 
     const items = CreateItemManager(this.graph);
     game.data.items = items;
 
-    const urlObj = new URL(window.location.href);
-    const params = new URLSearchParams(urlObj.search);
-
-    if (params.has("no-world-gen")) {
-      DVER.threads.world.runTask("start-world-test", []);
-    } else {
-      DVER.threads.world.runTask("start-world", []);
-    }
-
-    if (params.has("world-gen-map")) {
-      WorldMap();
-    }
+    this.screens.schema.activeScreen = UIScreensIds.Building;
   }
 }

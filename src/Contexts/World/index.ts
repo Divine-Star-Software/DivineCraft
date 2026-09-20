@@ -10,6 +10,7 @@ import { LocationData } from "@divinevoxel/vlox/Math";
 import { RawVoxelData } from "@divinevoxel/vlox";
 import { VoxelBuildSpaceWorld } from "@divinevoxel/vlox/Builder/World/VoxelBuildSpaceWorld";
 import { CachedBiomeRegister } from "Gen/Register/Cached/CachedBiomeRegister";
+import { Vector3Like } from "@amodx/math";
 
 //const worldStorage = new WorldStorage();
 const DVEW = await StartWorld({
@@ -91,30 +92,36 @@ WorldSimulation.Tasks.unloadTasks.addSubTask({
     task.completeSubTask(taskId);
   },
 });
+
+const radius = 300;
+Threads.registerTask<{ position: Vector3Like }>(
+  "load-world",
+  async ({ position }) => {
+    console.log("START WORLD", position);
+    console.warn("start inital load", position.x, position.y, position.z);
+
+    await WorldSimulation.Procedures.InitalLoad({
+      //logTasks: true,
+      genData: {
+        position,
+        renderRadius: radius - 100,
+        generationRadius: radius - 50,
+        maxRadius: radius,
+      },
+    });
+  },
+);
 Threads.registerTask("start-world", async () => {
   if (!player) throw new Error(`Player not created yet`);
   const position = TransformComponent.getRequired(player).schema.position;
-  console.warn("start inital load");
-
-  await WorldSimulation.Procedures.InitalLoad({
-    logTasks: true,
-    genData: {
-      position,
-      renderRadius: 150,
-      generationRadius: 250,
-      maxRadius: 300,
-    },
-  });
-
   const generator = WorldSimulation.createGenerator({
     position,
-    renderRadius: 150,
-    generationRadius: 250,
-    maxRadius: 300,
+    renderRadius: radius - 100,
+    generationRadius: radius - 50,
+    maxRadius: radius,
   });
 
   WorldSimulation.addGenerator(generator);
-  console.warn("start building");
   tickInterval.start();
 });
 

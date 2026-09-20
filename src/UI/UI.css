@@ -1,3 +1,164 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  letter-spacing: 5px;
+  font-weight: 500;
+  font-stretch: expanded;
+  background-color: black;
+  font-family: "retro";
+  --lost: #ff0000b3;
+  --background: rgba(14, 14, 14, 0.7);
+  --main: rgba(13, 52, 68, 0.7);
+  --main-dark: rgba(6, 21, 29, 0.8);
+  --label-background: #000000b3;
+  --input-background: #080808b3;
+  --label-error: #ff0000b3;
+  --label-active: rgba(5, 185, 240, 0.9);
+  --label-hover: rgba(224, 240, 5, 0.9);
+  --primary: var(--main);
+  --primary-dark: var(--main-dark);
+  --primary-bright: #1a1b1b;
+  --secondary: #1a97b6;
+  --secondary-dark: #006079;
+  --secondary-bright: #00beee;
+  --outline: #08cf12;
+  --font-color: #17c3ee;
+  --font-color-dark: #23b2d6;
+  --font-color-bright: #61dfff;
+  letter-spacing: 5px;
+  line-height: 1;
+  --box-shadow: 0 14px 16px rgba(0, 0, 0, 0.3);
+  --font-size: 20px;
+  --glow:
+    0 0 10px var(--secondary-bright), 0 0 20px var(--secondary-bright),
+    0 0 30px var(--secondary-dark), 0 0 40px var(--secondary-dark),
+    0 0 50px var(--secondary-dark), 0 0 60px var(--secondary-dark),
+    0 0 70px var(--secondary-dark);
+
+  --font-size-small: 0.8cqw;
+  --font-size-medium: 1cqw;
+  --font-size-large: 1.3cqw;
+  --font-size-xlarge: 1.6cqw;
+  --font-size-screen-sub-title: 2.2cqw;
+  --font-size-screen-title: 3cqw;
+  --font-size-game-title: 5cqw;
+
+  --font-size-form-label: var(--font-size-xlarge);
+  --font-size-form-input: var(--font-size-large);
+
+  --font-size-vkb-title: 50px;
+  --font-size-vkb-input: 40px;
+  --font-size-vkb-key: 30px;
+
+  --red: #ff0000;
+  --blue: #0000ff;
+  --green: #00ff00;
+
+  --yellow: #ffff00;
+  --orange: #ffa300;
+  --purple: #8000b2;
+  --pink: #ff00ff;
+
+  --white: #ffffff;
+  --black: #000000;
+
+  --jade: #00ff00;
+  --cyan: #00ffff;
+  --crimson: #800000;
+  --indigo: #660099;
+
+  --loot: #ffff00;
+
+  --inventory-background: #2e2f31;
+  --inventory-item: #0b0b14;
+  --inventory-item-active: #64a6af;
+  --inventory-color: #e2f4f5;
+}
+
+.game-title {
+  h1 {
+    font-size: var(--font-size-game-title);
+    color: var(--secondary-bright);
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: "retro";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: "retro";
+  src: url(./fonts/04b_03/04B_03__.TTF);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate3d(0, -1, 0, 0deg);
+  }
+  100% {
+    transform: rotate3d(0, -1, 0, 360deg);
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 10px var(--secondary-bright),
+      0 0 20px var(--secondary-bright),
+      0 0 30px var(--secondary-dark),
+      0 0 40px var(--secondary-dark),
+      0 0 50px var(--secondary-dark),
+      0 0 60px var(--secondary-dark),
+      0 0 70px var(--secondary-dark);
+  }
+  to {
+    text-shadow:
+      0 0 20px var(--secondary-bright),
+      0 0 30px var(--secondary),
+      0 0 40px var(--secondary),
+      0 0 50px var(--secondary),
+      0 0 60px var(--secondary),
+      0 0 70px var(--secondary),
+      0 0 80px var(--secondary);
+  }
+}
+
 .ui-screen {
   position: absolute;
   width: 100%;
@@ -27,4 +188,44 @@
   &.hidden {
     display: none;
   }
+}
+
+* {
+  scrollbar-color: var(--inventory-item-active) var(--inventory-background);
+  scrollbar-width: auto;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: var(--inventory-background);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--inventory-background);
+}
+
+*::-webkit-scrollbar-track-piece {
+  background: var(--inventory-background);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--inventory-item-active);
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--inventory-item-active);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: var(--inventory-item-active);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--inventory-background);
+}
+
+*::-webkit-scrollbar-button {
+  background: var(--inventory-background);
 }

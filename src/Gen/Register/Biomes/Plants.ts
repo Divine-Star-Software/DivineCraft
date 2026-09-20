@@ -12,7 +12,7 @@ const randomFlower: RandomWeights<Voxels> = [
   [Voxels.DandelionFlower, 10],
   [Voxels.BlueOrchidFlower, 10],
   [Voxels.OxeyeDaisyFlower, 10],
-  [Voxels.WaterlilyFlower, 10],
+  [Voxels.RoseFlower, 10],
 ];
 
 const randomPlant: RandomWeights<Voxels> = [

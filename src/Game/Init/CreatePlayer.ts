@@ -66,7 +66,7 @@ export default async function (dver: DivineVoxelEngineRender, graph: Graph) {
           TransformNodeComponent(),
           CameraProviderComponent(),
           FirstPersonCameraComponent({
-            position: { x: 0, y: 0, z: 0 },
+            position: { x: 0, y: 0.5, z: 0 },
             rotation: { x: 0, y: 0, z: 0 },
           }),
           CrossHairsComponent(),

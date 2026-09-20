@@ -38,7 +38,7 @@
   pointer-events: auto;
   gap: 30px;
   .inventory {
-    background-color: white;
+    background-color: var(--inventory-background);
     border-radius: 15px;
     .inventory-row {
       .inventory-slot {
@@ -46,8 +46,8 @@
         height: 50px;
 
         border-radius: 10px;
-        margin: 3px 3px 3px 3px;
-        background-color: #29210a;
+        margin: 3px 3px 3px 3px; 
+        background-color: var(--inventory-item);
 
         .item {
           width: 50px;
@@ -70,7 +70,7 @@
       .inventory-row {
         .inventory-slot {
           &.active {
-            background: var(--primary);
+            background: var(--inventory-item-active);
           }
         }
       }

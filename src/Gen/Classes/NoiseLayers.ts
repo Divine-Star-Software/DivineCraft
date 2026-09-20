@@ -36,27 +36,18 @@ export class NooiseLayers {
     this.detailNoise = createNoise3D(alea(`${seeds.detailNoise}`));
     this.biomeNoise = createNoise2D(alea(`${seeds.biomeNoise}`));
     this.biomeTypeMoistureNoise = createNoise2D(
-      alea(`${seeds.biomeTypeMoistureNoise}`)
+      alea(`${seeds.biomeTypeMoistureNoise}`),
     );
     this.biomeTypeTemperatureNoise = createNoise2D(
-      alea(`${seeds.biomeTypeTemperatureNoise}`)
+      alea(`${seeds.biomeTypeTemperatureNoise}`),
     );
     this.biomeTypeElevationNoise = createNoise2D(
-      alea(`${seeds.biomeTypeElevationNoise}`)
+      alea(`${seeds.biomeTypeElevationNoise}`),
     );
-    this.biomeDetailNoise = createNoise3D(
-      alea(`${seeds.biomeDetailNoise}`)
-    );
+    this.biomeDetailNoise = createNoise3D(alea(`${seeds.biomeDetailNoise}`));
     this.biomeTypeRiverNoise = createNoise2D(alea(seeds.biomeTypeRiverNoise));
     this.oreNoise = createNoise3D(alea(seeds.oreNoise));
     this.worldDetailNoise = createNoise3D(alea(seeds.worldDetailNoise));
     this.worldGenDetailNoise = createNoise3D(alea(seeds.worldGenDetailNoise));
-
-    console.log(
-      "noise",
-      this.biomeTypeElevationNoise(123, 31290),
-      this.biomeTypeElevationNoise(239048230, 42304),
-      this.biomeTypeTemperatureNoise(209348, 238490)
-    );
   }
 }

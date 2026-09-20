@@ -21,7 +21,6 @@ export function UIScreen({
         if (!screen.schema.active) div.classList.add("hidden");
 
         const activeListener = async (active: boolean) => {
-          console.log("set active", id, active);
           if (active) {
             elm.appendChildren(div, screenComp({ id }));
             div.style.opacity = "0";

@@ -23,9 +23,7 @@ export class RiverBankBiome extends Biome {
   getCarved(x: number, y: number, z: number): boolean {
     return Caves.getCarved(x, y, z);
   }
-  getBlendtoHeight(x: number, y: number, z: number): number {
-    return this.nodes.waterHeight;
-  }
+  
   noiseQuery(x: number, y: number, z: number) {
     return (
       (1 +

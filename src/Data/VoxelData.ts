@@ -2623,7 +2623,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_blue_orchid_flower",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -2662,7 +2662,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_dandelion_flower",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -2701,7 +2701,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_oxeye_daisy_flower",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -2740,7 +2740,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_tulip_flower",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -2776,22 +2776,22 @@ export const voxelData: VoxelData[] = [
   },
   {
     id: "5172f9e8",
-    name: "dc_waterlily_flower",
+    name: "dc_flower_rose",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
       dve_no_ao: true,
       dve_is_transparent: true,
       dve_particle_data: {
-        "*": "dc_waterlily_flower",
+        "*": "dc_flower_rose",
       },
       dve_named_states: [
         {
-          id: "dc_waterlily_flower",
-          name: "Waterlily Flower",
+          id: "dc_flower_rose",
+          name: "Rose",
           mod: "*",
           state: "*",
           properties: {},
@@ -2806,7 +2806,7 @@ export const voxelData: VoxelData[] = [
         id: "dve_simple_crossed_panels",
         inputs: {
           "*": {
-            texture: "dc_waterlily_flower",
+            texture: "dc_flower_rose",
             doubleSided: true,
           },
         },
@@ -2818,7 +2818,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_vine",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_shape_id: "dve_panel",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
@@ -2858,7 +2858,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_fern",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -2897,7 +2897,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_sea_grass",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -2936,7 +2936,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_reeds",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "reed",
@@ -2975,7 +2975,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_kelp",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -3014,7 +3014,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_grass",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "grass",
@@ -3089,7 +3089,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_brain_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3163,7 +3163,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_bubble_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3305,7 +3305,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_dead_fire_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3379,7 +3379,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_dead_horn_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3455,7 +3455,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_dead_tube_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3529,7 +3529,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_dead_brain_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3568,7 +3568,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_dead_bubble_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3607,7 +3607,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_fire_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3681,7 +3681,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_horn_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
@@ -3755,7 +3755,7 @@ export const voxelData: VoxelData[] = [
     name: "dc_tube_coral",
     properties: {
       dve_substance: "dve_flora",
-      dve_rendered_material: "dve_flora_transparent",
+      dve_rendered_material: "dve_flora",
       dve_collider_id: "dve_cube",
       dve_check_collisions: false,
       dve_voxel_material: "coral",
